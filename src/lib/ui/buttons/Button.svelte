@@ -6,42 +6,38 @@
   export let size: ButtonSize = "medium";
   export let href: string = undefined;
   export let disabled: boolean = false;
+  export let tabIndex: number = 0;
   export let onClick: (event: Event) => void = () => {
   };
 
-  function getClassList() {
-    let classes = "button";
-    let addClass = (cls) => classes += ` ${cls}`;
+  const isSecondary = variant === "secondary";
+  const isPrimary = variant === "primary";
+  const isText = variant === "text";
 
-    if (variant === "secondary") addClass("button-secondary");
-    if (variant === "primary") addClass("button-primary");
-    if (variant === "text") addClass("button-text");
-    if (size === "small") addClass("button-small");
-    if (size === "large") addClass("button-large");
+  const isSmall = size === "small";
+  const isLarge = size === "large";
 
-    return classes;
-  }
-
-  const props = { class: getClassList(), "data-testid": testId };
-
+  const tag = !!href ? "a" : "button";
+  const role = tag === "a" ? "link": "button";
 </script>
 
-{#if href}
-  <a
-    {...props}
-    {href}
-  >
-    <slot></slot>
-  </a>
-{:else}
-  <button
-    {...props}
-    on:click={onClick}
-    disabled="{disabled}"
-  >
-    <slot />
-  </button>
-{/if}
+<svelte:element this={tag}
+                class="button"
+                class:button-large={isLarge}
+                class:button-small={isSmall}
+                class:button-primary={isPrimary}
+                class:button-secondary={isSecondary}
+                class:button-text={isText}
+                {href}
+                on:click={onClick}
+                disabled="{disabled}"
+                data-testid={testId}
+                role={role}
+                tabIndex="{tabIndex}"
+                >
+  <slot />
+</svelte:element>
+
 <style>
     .button {
         border-radius: 4px;
@@ -57,6 +53,10 @@
         cursor: pointer;
     }
 
+    .button:disabled {
+      opacity: 0.5;
+    }
+
     .button-small {
         padding: 4px 8px;
         font-size: var(--font-size-small);
@@ -64,10 +64,6 @@
 
     .button-large {
         padding: 12px 24px;
-    }
-
-    .button:disabled {
-        opacity: 0.5;
     }
 
     .button-primary {

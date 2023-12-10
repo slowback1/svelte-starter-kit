@@ -129,4 +129,20 @@ describe('Button', () => {
 
 		expect(button).not.toBeDisabled();
 	});
+
+	it("has a tabindex of 0 by default", () => {
+		renderComponent();
+
+		let button = result.getByRole("button");
+
+		expect(button.tabIndex).toEqual(0);
+	})
+
+	it("can update the tab index", () => {
+		renderComponent({tabIndex: 1});
+
+		let button = result.getByRole("button");
+
+		expect(button.tabIndex).toEqual(1);
+	})
 });
