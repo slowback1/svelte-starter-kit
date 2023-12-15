@@ -34,7 +34,8 @@
     .text-box {
         padding: 4px;
         background-color: transparent;
-        border: 1px solid var(--color-rich-blue);
+        color: var(--color-font);
+        border: 1px solid var(--color-font);
         border-radius: 4px;
     }
 </style>
