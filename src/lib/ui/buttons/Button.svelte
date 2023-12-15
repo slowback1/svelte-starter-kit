@@ -35,7 +35,7 @@
                 role={role}
                 tabIndex="{tabIndex}"
                 >
-  <slot />
+    <slot> Button Content Goes Here </slot>
 </svelte:element>
 
 <style>
@@ -67,34 +67,35 @@
     }
 
     .button-primary {
-        background-color: var(--color-yale-blue);
-        color: var(--color-nyanza);
-        border-color: var(--color-nyanza);
+        background-color: var(--color-primary-background);
+        color: var(--color-primary-font);
+        border-color: var(--color-primary-border);
     }
 
     .button-primary:hover, .button-primary:focus {
-        background-color: var(--color-yale-blue-highlight);
+        background-color: var(--color-primary-background-highlight);
     }
 
     .button-secondary {
         background-color: transparent;
-        color: var(--color-nyanza);
-        border-color: var(--color-nyanza);
+        color: var(--color-secondary-font);
+        border-color: var(--color-secondary-border);
     }
 
     .button-secondary:hover, .button-secondary:focus {
-        background-color: var(--color-nyanza);
-        color: var(--color-rich-blue);
+        background-color: var(--color-secondary-background);
+        color: var(--color-secondary-background-font);
     }
 
     .button-text {
         background-color: transparent;
-        color: var(--color-rich-blue);
+        color: var(--color-font);
         border-color: transparent;
     }
 
     .button-text:hover, .button-text:focus {
-        background-color: var(--color-rich-blue);
-        color: var(--color-font-light);
+        background-color: var(--color-primary-background);
+        color: var(--color-primary-font);
+        border-color: var(--color-primary-border);
     }
 </style>

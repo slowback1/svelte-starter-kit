@@ -1,0 +1,27 @@
+body {
+    /* Fonts */
+    --font-family-primary: "Helvetica", sans-serif;
+
+    --font-size-small: 16px;
+    --font-size-medium: 24px;
+    --font-size-large: 32px;
+
+    /* Colors */
+
+    --color-primary-background: #051a4f;
+    --color-primary-font: #fff;
+    --color-primary-border: #3a43b2;
+
+    --color-secondary-background: rgba(1, 12, 42, 0.38);
+    --color-secondary-font: #8a8585;
+    --color-secondary-border: #162742;
+
+    --color-background: #111;
+    --color-font: #efefef;
+
+    /* Top Level Styles */
+
+    background-color: var(--color-background);
+    color: var(--color-font);
+    font-family: var(--font-family-primary);
+}
