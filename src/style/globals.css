@@ -29,5 +29,5 @@ body {
 
 	--gutters-y: 12px;
 	--gutters-x: 24px;
-	--header-height: 0;
+	--header-height: 64px;
 }

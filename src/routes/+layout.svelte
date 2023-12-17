@@ -2,12 +2,16 @@
 	import { onMount } from 'svelte';
 	import MessageBus from '$lib/bus/MessageBus';
 	import getRealStorageProvider from '$lib/bus/realStorageProvider';
+	import Header from '$lib/components/navigation/Header.svelte';
+	import UrlPathProvider, { RealUrlProvider } from '$lib/providers/urlPathProvider';
 
 	onMount(() => {
 		MessageBus.initialize(getRealStorageProvider());
+		UrlPathProvider.initialize(new RealUrlProvider());
 	});
 </script>
 
+<Header />
 <main id="content" class="main-content">
 	<slot />
 </main>
