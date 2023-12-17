@@ -1,27 +1,33 @@
 body {
-    /* Fonts */
-    --font-family-primary: "Helvetica", sans-serif;
+	/* Fonts */
+	--font-family-primary: 'Helvetica', sans-serif;
 
-    --font-size-small: 16px;
-    --font-size-medium: 24px;
-    --font-size-large: 32px;
+	--font-size-small: 16px;
+	--font-size-medium: 24px;
+	--font-size-large: 32px;
 
-    /* Colors */
+	/* Colors */
 
-    --color-primary-background: #051a4f;
-    --color-primary-font: #fff;
-    --color-primary-border: #3a43b2;
+	--color-primary-background: #051a4f;
+	--color-primary-font: #fff;
+	--color-primary-border: #3a43b2;
 
-    --color-secondary-background: rgba(1, 12, 42, 0.38);
-    --color-secondary-font: #8a8585;
-    --color-secondary-border: #162742;
+	--color-secondary-background: rgba(1, 12, 42, 0.38);
+	--color-secondary-font: #8a8585;
+	--color-secondary-border: #162742;
 
-    --color-background: #111;
-    --color-font: #efefef;
+	--color-background: #111;
+	--color-font: #efefef;
 
-    /* Top Level Styles */
+	/* Top Level Styles */
 
-    background-color: var(--color-background);
-    color: var(--color-font);
-    font-family: var(--font-family-primary);
+	background-color: var(--color-background);
+	color: var(--color-font);
+	font-family: var(--font-family-primary);
+
+	/* Gutters */
+
+	--gutters-y: 12px;
+	--gutters-x: 24px;
+	--header-height: 0;
 }

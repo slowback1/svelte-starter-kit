@@ -1,0 +1,26 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import MessageBus from '$lib/bus/MessageBus';
+	import getRealStorageProvider from '$lib/bus/realStorageProvider';
+
+	onMount(() => {
+		MessageBus.initialize(getRealStorageProvider());
+	});
+</script>
+
+<main id="content" class="main-content">
+	<slot />
+</main>
+
+<style global>
+	@import '../style/reset.css';
+	@import '../style/globals.css';
+
+	.main-content {
+		min-height: calc(100vh - var(--gutters-y) * 2 - var(--header-height));
+		padding: var(--gutters-y) var(--gutters-x);
+		scroll-behavior: auto;
+		display: flex;
+		flex-direction: column;
+	}
+</style>
