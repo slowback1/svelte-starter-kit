@@ -12,7 +12,9 @@
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:ci": "vite build",
+    "test:ci": "vitest --reporter=junit --watch=false --outputFile=./testOutput/results.xml"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.4",
