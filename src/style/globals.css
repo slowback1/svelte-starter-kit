@@ -1,23 +1,11 @@
-body {
+body,
+main {
 	/* Fonts */
 	--font-family-primary: 'Helvetica', sans-serif;
 
 	--font-size-small: 16px;
 	--font-size-medium: 24px;
 	--font-size-large: 32px;
-
-	/* Colors */
-
-	--color-primary-background: #051a4f;
-	--color-primary-font: #fff;
-	--color-primary-border: #3a43b2;
-
-	--color-secondary-background: rgba(1, 12, 42, 0.38);
-	--color-secondary-font: #8a8585;
-	--color-secondary-border: #162742;
-
-	--color-background: #111;
-	--color-font: #efefef;
 
 	/* Top Level Styles */
 
@@ -30,4 +18,30 @@ body {
 	--gutters-y: 12px;
 	--gutters-x: 24px;
 	--header-height: 64px;
+}
+
+.light-theme {
+	--color-primary-background: #1248c7;
+	--color-primary-font: #fff;
+	--color-primary-border: #3a43b2;
+
+	--color-secondary-background: rgba(68, 82, 122, 0.38);
+	--color-secondary-font: #c9c9c9;
+	--color-secondary-border: #50b730;
+
+	--color-background: #e1e1e1;
+	--color-font: #101010;
+}
+
+.dark-theme {
+	--color-primary-background: #051a4f;
+	--color-primary-font: #fff;
+	--color-primary-border: #3a43b2;
+
+	--color-secondary-background: rgba(1, 12, 42, 0.38);
+	--color-secondary-font: #8a8585;
+	--color-secondary-border: #162742;
+
+	--color-background: #111;
+	--color-font: #efefef;
 }

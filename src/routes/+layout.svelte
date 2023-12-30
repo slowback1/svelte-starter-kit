@@ -4,17 +4,31 @@
 	import getRealStorageProvider from '$lib/bus/realStorageProvider';
 	import Header from '$lib/components/navigation/Header.svelte';
 	import UrlPathProvider, { RealUrlProvider } from '$lib/providers/urlPathProvider';
+	import { ColorTheme } from '$lib/services/ThemeService';
+	import { Messages } from '$lib/bus/Messages';
+
+	let currentTheme: ColorTheme = ColorTheme.Light;
 
 	onMount(() => {
 		MessageBus.initialize(getRealStorageProvider());
 		UrlPathProvider.initialize(new RealUrlProvider());
+
+		MessageBus.subscribe<ColorTheme>(
+			Messages.CurrentTheme,
+			(value) => (currentTheme = value ?? ColorTheme.Light)
+		);
 	});
 </script>
 
-<Header />
-<main id="content" class="main-content">
-	<slot />
-</main>
+<div
+	class:light-theme={currentTheme === ColorTheme.Light}
+	class:dark-theme={currentTheme === ColorTheme.Dark}
+>
+	<Header />
+	<main id="content" class="main-content">
+		<slot />
+	</main>
+</div>
 
 <style global>
 	@import '../style/reset.css';
