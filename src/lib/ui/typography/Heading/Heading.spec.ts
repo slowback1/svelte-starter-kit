@@ -1,5 +1,5 @@
 import { render, type RenderResult } from '@testing-library/svelte';
-import Heading from '$lib/ui/typography/Heading.svelte';
+import Heading from '$lib/ui/typography/Heading/Heading.svelte';
 import { beforeEach } from 'vitest';
 
 describe('Heading', () => {

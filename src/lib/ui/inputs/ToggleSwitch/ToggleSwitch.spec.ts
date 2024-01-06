@@ -1,5 +1,5 @@
 import type { RenderResult } from '@testing-library/svelte';
-import ToggleSwitch from '$lib/ui/inputs/ToggleSwitch.svelte';
+import ToggleSwitch from '$lib/ui/inputs/ToggleSwitch/ToggleSwitch.svelte';
 import { act, fireEvent, render, waitFor } from '@testing-library/svelte';
 import { beforeEach } from 'vitest';
 

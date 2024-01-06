@@ -1,4 +1,4 @@
-import Dialog from '$lib/ui/containers/Dialog.svelte';
+import Dialog from '$lib/ui/containers/Dialog/Dialog.svelte';
 
 export default {
 	title: 'UI/Dialog',

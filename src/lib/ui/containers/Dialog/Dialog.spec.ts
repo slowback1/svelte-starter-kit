@@ -1,5 +1,5 @@
 import { act, fireEvent, render, type RenderResult } from '@testing-library/svelte';
-import Dialog from '$lib/ui/containers/Dialog.svelte';
+import Dialog from '$lib/ui/containers/Dialog/Dialog.svelte';
 
 describe('Dialog', () => {
 	let result: RenderResult<Dialog>;
