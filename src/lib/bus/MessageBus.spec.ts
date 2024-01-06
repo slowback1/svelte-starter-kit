@@ -1,6 +1,6 @@
 import MessageBus from '$lib/bus/MessageBus';
 import type IStorageProvider from './IStorageProvider';
-import getLocalStorageMock from "$lib/testHelpers/localStorageMock";
+import getLocalStorageMock from '$lib/testHelpers/localStorageMock';
 
 describe('MessageBus', () => {
 	let storageProvider: IStorageProvider;
@@ -126,5 +126,33 @@ describe('MessageBus', () => {
 
 		expect(firstValue).toEqual(null);
 		expect(secondValue).toEqual(null);
+	});
+
+	it('can configure a message to not store its data in long term storage', () => {
+		MessageBus.configure.doNotStoreDataForMessage('ignore_me');
+
+		MessageBus.sendMessage('ignore_me', 'hello');
+
+		let storedValue = storageProvider.getItem('ignore_me');
+
+		expect(storedValue).not.toEqual('hello');
+	});
+
+	it('can unconfigure a message to not store its data in long term storage', () => {
+		MessageBus.configure.doNotStoreDataForMessage('ignore_me');
+
+		MessageBus.sendMessage('ignore_me', 'hello');
+
+		let storedValue = storageProvider.getItem('ignore_me');
+
+		expect(storedValue).not.toEqual('hello');
+
+		MessageBus.configure.restartStoringDataForMessage('ignore_me');
+
+		MessageBus.sendMessage('ignore_me', 'hello');
+
+		storedValue = storageProvider.getItem('ignore_me');
+
+		expect(storedValue).toEqual('hello');
 	});
 });

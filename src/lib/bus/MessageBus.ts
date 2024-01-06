@@ -2,13 +2,33 @@ import type IStorageProvider from './IStorageProvider';
 
 type SubscriberCallback<T = any> = (value?: T) => void;
 
+class MessageBusConfiguration {
+	private noStorageMessages: { [key: string]: boolean } = {};
+
+	doNotStoreDataForMessage(message: string) {
+		this.noStorageMessages[message] = true;
+	}
+
+	restartStoringDataForMessage(message: string) {
+		delete this.noStorageMessages[message];
+	}
+
+	shouldStoreDataForMessage(message: string) {
+		let hasANoStorageMessage = this.noStorageMessages[message] ?? false;
+
+		return !hasANoStorageMessage;
+	}
+}
+
 export default class MessageBus {
 	private static messageLog: { [message: string]: any } = {};
 	private static subscribers: { [message: string]: SubscriberCallback[] } = {};
 	private static storageProvider: IStorageProvider;
+	public static configure: MessageBusConfiguration = new MessageBusConfiguration();
 
 	public static initialize(storageProvider: IStorageProvider) {
 		this.storageProvider = storageProvider;
+		this.configure = new MessageBusConfiguration();
 
 		let storedValues = storageProvider.getStore();
 
@@ -60,6 +80,7 @@ export default class MessageBus {
 
 	private static updateStorage(message: string) {
 		if (!this.storageProvider) return;
+		if (!this.configure.shouldStoreDataForMessage(message)) return;
 
 		let value = this.messageLog[message];
 
