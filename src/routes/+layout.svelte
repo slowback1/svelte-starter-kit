@@ -6,12 +6,14 @@
 	import UrlPathProvider, { RealUrlProvider } from '$lib/providers/urlPathProvider';
 	import { ColorTheme } from '$lib/services/ThemeService';
 	import { Messages } from '$lib/bus/Messages';
+	import ConfigService, { type ApplicationConfig } from '$lib/services/ConfigService';
 
 	let currentTheme: ColorTheme = ColorTheme.Light;
 
 	onMount(() => {
 		MessageBus.initialize(getRealStorageProvider());
 		UrlPathProvider.initialize(new RealUrlProvider());
+		ConfigService.initialize();
 
 		MessageBus.subscribe<ColorTheme>(
 			Messages.CurrentTheme,
