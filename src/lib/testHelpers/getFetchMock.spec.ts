@@ -2,7 +2,7 @@ import { getFetchMock, mockApi } from '$lib/testHelpers/getFetchMock';
 import { afterEach, beforeEach } from 'vitest';
 
 describe('fetch mocking', () => {
-	let realFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+	let realFetch: (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
 	beforeEach(() => {
 		realFetch = global.fetch;
