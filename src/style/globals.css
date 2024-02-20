@@ -31,6 +31,18 @@ main {
 
 	--color-background: #e1e1e1;
 	--color-font: #101010;
+
+	--color-info-light-background: rgba(16, 112, 150, 0.68);
+	--color-info-light-font: #dedee0;
+
+	--color-error-light-background: rgba(231, 26, 26, 0.82);
+	--color-error-light-font: #fae1e1;
+
+	--color-success-light-background: rgb(29, 117, 17);
+	--color-success-light-font: #aeec9e;
+
+	--color-warning-light-background: #a65a16;
+	--color-warning-light-font: #dec48c;
 }
 
 .dark-theme {
@@ -44,4 +56,16 @@ main {
 
 	--color-background: #111;
 	--color-font: #efefef;
+
+	--color-info-light-background: rgba(16, 112, 150, 0.68);
+	--color-info-light-font: #dedee0;
+
+	--color-error-light-background: rgba(145, 18, 18, 0.51);
+	--color-error-light-font: #d77474;
+
+	--color-success-light-background: rgb(29, 117, 17);
+	--color-success-light-font: #aeec9e;
+
+	--color-warning-light-background: #a65a16;
+	--color-warning-light-font: #dec48c;
 }

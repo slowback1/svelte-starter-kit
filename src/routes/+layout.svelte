@@ -7,6 +7,7 @@
 	import { ColorTheme } from '$lib/services/ThemeService';
 	import { Messages } from '$lib/bus/Messages';
 	import ConfigService, { type ApplicationConfig } from '$lib/services/ConfigService';
+	import ToastWrapper from '$lib/ui/containers/toast/ToastWrapper.svelte';
 
 	let currentTheme: ColorTheme = ColorTheme.Light;
 
@@ -26,6 +27,7 @@
 	class:light-theme={currentTheme === ColorTheme.Light}
 	class:dark-theme={currentTheme === ColorTheme.Dark}
 >
+	<ToastWrapper />
 	<Header />
 	<main id="content" class="main-content">
 		<slot />
