@@ -11,7 +11,7 @@ describe('ConfigService', () => {
 
 		beforeEach(async () => {
 			const exampleConfig: ApplicationConfig = {
-				key: 'value'
+				baseUrl: 'value'
 			};
 
 			mockFetch = getFetchMock(exampleConfig);
@@ -33,7 +33,7 @@ describe('ConfigService', () => {
 			await waitFor(() => {
 				let lastMessage = MessageBus.getLastMessage<ApplicationConfig>(Messages.ApplicationConfig);
 
-				expect(lastMessage.key).toEqual('value');
+				expect(lastMessage.baseUrl).toEqual('value');
 			});
 		});
 	});
@@ -42,13 +42,13 @@ describe('ConfigService', () => {
 		let service: ConfigService;
 
 		beforeEach(() => {
-			MessageBus.sendMessage(Messages.ApplicationConfig, { key: 'value' });
+			MessageBus.sendMessage(Messages.ApplicationConfig, { baseUrl: 'value' });
 
 			service = new ConfigService();
 		});
 
 		it('can get the config from the message bus', () => {
-			let result = service.getConfig('key');
+			let result = service.getConfig('baseUrl');
 
 			expect(result).toEqual('value');
 		});

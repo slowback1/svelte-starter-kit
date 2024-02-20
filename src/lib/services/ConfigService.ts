@@ -2,7 +2,7 @@ import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 
 export type ApplicationConfig = {
-	key: string;
+	baseUrl: string;
 };
 
 export default class ConfigService {

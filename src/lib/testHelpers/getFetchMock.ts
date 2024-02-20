@@ -52,7 +52,7 @@ function getMatchedResponse(url: string, map: MockApiMap) {
 }
 
 export function mockApi(map: MockApiMap) {
-	let mock = vi.fn((url: string) => {
+	let mock = vi.fn((url: string, options: RequestInit) => {
 		let matchedResponse = getMatchedResponse(url, map);
 
 		if (!matchedResponse) throw new Error(`Invalid URL: '${url}'`);
