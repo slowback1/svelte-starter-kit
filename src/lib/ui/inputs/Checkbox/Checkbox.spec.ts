@@ -1,0 +1,86 @@
+import { fireEvent, render, type RenderResult, waitFor } from '@testing-library/svelte';
+import Checkbox from '$lib/ui/inputs/Checkbox/Checkbox.svelte';
+import type { ComponentProps } from 'svelte';
+import { beforeEach, expect } from 'vitest';
+
+describe('Checkbox', () => {
+	let result: RenderResult<Checkbox>;
+
+	function renderComponent(overrides: Partial<ComponentProps<Checkbox>> = {}) {
+		if (result) result.unmount();
+
+		let props = {
+			id: 'test',
+			label: 'test',
+			...overrides
+		};
+
+		result = render(Checkbox, { props });
+	}
+
+	beforeEach(() => {
+		renderComponent();
+	});
+
+	it('renders a checkbox', () => {
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		expect(checkbox).toBeInTheDocument();
+	});
+
+	it('renders the given label', () => {
+		renderComponent({ label: 'test' });
+
+		let label = result.container.querySelector('label');
+
+		expect(label).toBeInTheDocument();
+		expect(label).toHaveTextContent('test');
+	});
+
+	it('ties the input and id together with the given id', () => {
+		renderComponent({ id: 'test' });
+		let label = result.container.querySelector('label');
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		expect(checkbox).toHaveAttribute('id', 'test');
+		expect(label).toHaveAttribute('for', 'test');
+	});
+
+	it('will set the data-testid attribute to the id if given no override', () => {
+		renderComponent({ id: 'test' });
+		let label = result.container.querySelector('label');
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		expect(checkbox).toHaveAttribute('data-testid', 'test');
+		expect(label).toHaveAttribute('data-testid', 'test-label');
+	});
+
+	it('can overwrite the testid attribute', () => {
+		renderComponent({ testId: 'something-different' });
+
+		let label = result.container.querySelector('label');
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		expect(checkbox).toHaveAttribute('data-testid', 'something-different');
+		expect(label).toHaveAttribute('data-testid', 'something-different-label');
+	});
+
+	it('can be checked by default', () => {
+		renderComponent({ checked: true });
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		expect(checkbox).toBeChecked();
+	});
+
+	it('clicking the checkbox checks the checkbox', async () => {
+		let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+		fireEvent.click(checkbox);
+
+		await waitFor(() => {
+			let checkbox = result.container.querySelector('input[type="checkbox"]');
+
+			expect(checkbox).toBeChecked();
+		});
+	});
+});
