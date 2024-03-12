@@ -1,6 +1,6 @@
 import type IStorageProvider from './IStorageProvider';
 
-type SubscriberCallback<T = any> = (value?: T) => void;
+type SubscriberCallback<T = any> = (value?: T) => void | Promise<void>;
 
 class MessageBusConfiguration {
 	private noStorageMessages: { [key: string]: boolean } = {};
@@ -64,6 +64,12 @@ export default class MessageBus {
 		this.updateStorage(message);
 	}
 
+	static async sendMessageAsync(message: string, value: any) {
+		this.messageLog[message] = value;
+		await this.notifySubscribersAsync(message);
+		this.updateStorage(message);
+	}
+
 	static clear(message: string) {
 		this.sendMessage(message, null);
 	}
@@ -88,7 +94,15 @@ export default class MessageBus {
 
 		this.storageProvider.setItem(message, valueToStore);
 	}
+	private static async notifySubscribersAsync(message: string) {
+		let subscriberList = this.subscribers[message];
+		let value = this.messageLog[message];
 
+		if (subscriberList)
+			for (const sub of subscriberList) {
+				await sub(value);
+			}
+	}
 	private static notifySubscribers(message: string) {
 		let subscriberList = this.subscribers[message];
 		let value = this.messageLog[message];

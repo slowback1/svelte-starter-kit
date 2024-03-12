@@ -155,4 +155,18 @@ describe('MessageBus', () => {
 
 		expect(storedValue).toEqual('hello');
 	});
+
+	it('can send messages asynchronously', async () => {
+		let storedValue: any;
+
+		MessageBus.subscribe('test', async (value) => {
+			await new Promise((res) => setTimeout(res, 100));
+
+			storedValue = value;
+		});
+
+		await MessageBus.sendMessageAsync('test', 'hello world');
+
+		expect(storedValue).toEqual('hello world');
+	});
 });
