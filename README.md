@@ -50,3 +50,31 @@ Update the `ApplicationConfig` type to match the configuration structure of your
 It is usually a good idea to re-run `scripts/initial-setup.sh` after making any changes to the example config JSON file, so that those changes are reflected in your local development environment.
 
 At runtime, the application will be looking for `config/config.json` for its runtime config.
+
+### Deploying
+
+The starter kit is set to build as a static site by default.  This should work for websites and web apps with static URLs.  If you need to use dynamic path parameters, or if you would prefer to build a server rendered app instead, follow the steps in the `Switch to a Server Rendered Deployment` section below.
+
+#### Setup
+
+Run `scripts/build-docker-image.sh` in your CI environment to build and push a new docker image (note that this script assumes certain environment files are present, look at the contents of the script for exact details).  The image only exposes port 80, so it is recommended to put the deployed container behind a reverse proxy, such as traefik.
+
+If you need to deploy in a non-docker environment, your CI environment should be able to run `npm run build:ci`, and copy the contents in the `./build` directory to a hosting environment. 
+
+#### Switch to a Server Rendered Deployment
+
+1. In `package.json`, replace the `@sveltejs/adapter-static` dependency with `@sveltejs/adapter-node` (at the time of writing this, version `1.3.1` confirm works with the rest of the versions installed in this starter kit)
+2. In `svelte.config.js`, replace the adapter import from `import adapter from '@sveltejs/adapter-static';` to `import adapter from '@sveltejs/adapter-node';`
+3. Delete the layout file in `src/routes/+layout.ts`
+4. Replace the `final` stage in the dockerfile (found at `docker/Dockerfile`) with the following contents:
+```dockerfile
+FROM node:18-alpine as final
+COPY --from=builder app/build build/
+COPY --from=builder app/node_modules node_modules/
+COPY package.json .
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["node", "build"]
+```
+
+Note that this exposes a different port (3000) than the static site build, so if you have any existing deployments, you may need to update the networking to accommodate this.
