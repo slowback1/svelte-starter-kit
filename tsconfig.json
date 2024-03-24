@@ -10,7 +10,8 @@
 		"sourceMap": true,
 		"strict": false,
 		"types": ["vitest/globals", "@testing-library/jest-dom"],
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"experimentalDecorators": true
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
