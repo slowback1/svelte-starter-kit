@@ -43,6 +43,8 @@ The `baseAPI` class can serve as a basis for all of your project specific data f
 
 The starter kit has a default way of retrieving run-time configuration on page load and storing this in the message bus.  Any usage of configuration in the app should go through the `ConfigService` class for consistency and type-safety.
 
+If you are using the starter kit's Dockerfile to deploy the app, you can bind mount the config file to the nginx html folder, for example: `/usr/share/nginx/html/config/config.json`
+
 #### Setup
 
 Update the `ApplicationConfig` type to match the configuration structure of your project.  Make sure to keep the example config file (`static/config/config.example.json`) up to date with a good starting point for local development!
@@ -77,4 +79,6 @@ EXPOSE 3000
 CMD ["node", "build"]
 ```
 
-Note that this exposes a different port (3000) than the static site build, so if you have any existing deployments, you may need to update the networking to accommodate this.
+A few things to note: 
+* This exposes a different port (3000) than the static site build, so if you have any existing deployments, you may need to update the networking to accommodate this.
+* If you have any bind mounts (for runtime config, for example), you will need to update these.  For bind mounting the `config.json` file included in this starter kit, you would need to mount that to `/build/client/config/config.json`
