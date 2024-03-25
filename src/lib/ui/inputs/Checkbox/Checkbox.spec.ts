@@ -2,6 +2,7 @@ import { fireEvent, render, type RenderResult, waitFor } from '@testing-library/
 import Checkbox from '$lib/ui/inputs/Checkbox/Checkbox.svelte';
 import type { ComponentProps } from 'svelte';
 import { beforeEach, expect } from 'vitest';
+import CheckboxTestHelpers from './CheckboxTestHelpers';
 
 describe('Checkbox', () => {
 	let result: RenderResult<Checkbox>;
@@ -29,12 +30,8 @@ describe('Checkbox', () => {
 	});
 
 	it('renders the given label', () => {
-		renderComponent({ label: 'test' });
-
-		let label = result.container.querySelector('label');
-
-		expect(label).toBeInTheDocument();
-		expect(label).toHaveTextContent('test');
+		renderComponent({ label: 'custom label' });
+		CheckboxTestHelpers.assertHasLabel('test', 'custom label');
 	});
 
 	it('ties the input and id together with the given id', () => {
@@ -65,22 +62,21 @@ describe('Checkbox', () => {
 		expect(label).toHaveAttribute('data-testid', 'something-different-label');
 	});
 
+	it("is not checked by default when not overridden", () => {
+		CheckboxTestHelpers.assertCheckboxISNotChecked('test');
+	})
+
 	it('can be checked by default', () => {
 		renderComponent({ checked: true });
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
 
-		expect(checkbox).toBeChecked();
+		CheckboxTestHelpers.assertCheckboxIsChecked('test');
 	});
 
 	it('clicking the checkbox checks the checkbox', async () => {
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
-
-		fireEvent.click(checkbox);
+		CheckboxTestHelpers.checkCheckbox('test');
 
 		await waitFor(() => {
-			let checkbox = result.container.querySelector('input[type="checkbox"]');
-
-			expect(checkbox).toBeChecked();
+			CheckboxTestHelpers.assertCheckboxIsChecked('test');
 		});
 	});
 });

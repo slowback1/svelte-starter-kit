@@ -5,6 +5,7 @@ import { beforeEach } from 'vitest';
 import type { ComboBoxOption } from '$lib/ui/inputs/ComboBox/ComboBoxService';
 import { slugify } from '$lib/utils/stringUtils';
 import { KeyboardKeys } from '$lib/utils/KeyboardKeys';
+import ComboBoxTestHelpers from './ComboBoxTestHelpers';
 
 describe('ComboBox', () => {
 	let result: RenderResult<ComboBox>;
@@ -66,16 +67,11 @@ describe('ComboBox', () => {
 	it('renders the label in a way that is accessible via a test id', () => {
 		renderComponent({ label: 'my custom label' });
 
-		let label = result.getByTestId(`${testId}__label`);
-
-		expect(label).toBeInTheDocument();
-		expect(label).toHaveTextContent('my custom label');
+		ComboBoxTestHelpers.assertThatComboBoxHasLabel(testId, 'my custom label');
 	});
 
 	it('renders an input for the combobox', () => {
-		let input = result.getByTestId(`${testId}__input`);
-
-		expect(input).toBeInTheDocument();
+		ComboBoxTestHelpers.assertThatComboBoxHasValue(testId, '');
 	});
 
 	it("the input's id and label are correctly hooked up", () => {
@@ -257,6 +253,13 @@ describe('ComboBox', () => {
 			expect(input).toHaveValue(testOptionInput[1].label);
 		});
 	});
+
+	it("can conmbine typing and clicking to select an option", async () =>{
+		let label = testOptionInput[2].label;
+		await ComboBoxTestHelpers.selectComboBoxOption(testId, label);
+
+		ComboBoxTestHelpers.assertThatComboBoxHasValue(testId, label)
+	})
 
 	it('hovering over an option value switches focus to that option', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();

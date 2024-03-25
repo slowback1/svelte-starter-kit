@@ -1,7 +1,8 @@
 import type { RenderResult } from '@testing-library/svelte';
 import TextBox from './TextBox.svelte';
 import { afterEach, beforeEach } from 'vitest';
-import { fireEvent, render } from '@testing-library/svelte';
+import { fireEvent, render, waitFor } from '@testing-library/svelte';
+import TextBoxTestHelpers from './TextBoxTestHelpers';
 
 describe('TextBox', () => {
 	let result: RenderResult<TextBox>;
@@ -43,9 +44,7 @@ describe('TextBox', () => {
 	it('passes the label to the textbox', () => {
 		renderComponent({ label: 'test label' });
 
-		let label = result.container.querySelector('label');
-
-		expect(label.textContent).toEqual('test label');
+		TextBoxTestHelpers.assertHasLabel('test-label', 'test label');
 	});
 
 	it('generates an id based off of the label', () => {
@@ -65,11 +64,9 @@ describe('TextBox', () => {
 	});
 
 	it('sets the value', () => {
-		renderComponent({ value: 'value' });
+		renderComponent({ value: 'value', id: 'test' });
 
-		let input = result.container.querySelector('input');
-
-		expect(input.value).toEqual('value');
+		TextBoxTestHelpers.assertHasValue('test', 'value');
 	});
 
 	it("the label has the given test id with '-label' appended to the end of it", () => {
@@ -79,5 +76,15 @@ describe('TextBox', () => {
 
 		expect(label).toBeInTheDocument();
 		expect(label).toHaveTextContent('my cool label');
+	});
+
+	it('can change the input value', async () => {
+		renderComponent({ id: 'test' });
+
+		TextBoxTestHelpers.enterTextIntoTextbox('test', 'Rathalos');
+
+		await waitFor(() => {
+			TextBoxTestHelpers.assertHasValue('test', 'Rathalos');
+		});
 	});
 });

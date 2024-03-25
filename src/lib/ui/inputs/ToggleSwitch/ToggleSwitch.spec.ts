@@ -2,6 +2,7 @@ import type { RenderResult } from '@testing-library/svelte';
 import ToggleSwitch from '$lib/ui/inputs/ToggleSwitch/ToggleSwitch.svelte';
 import { act, fireEvent, render, waitFor } from '@testing-library/svelte';
 import { beforeEach } from 'vitest';
+import ToggleSwitchTestHelpers from './ToggleSwitchTestHelpers';
 
 describe('ToggleSwitch', () => {
 	let result: RenderResult<ToggleSwitch>;
@@ -25,22 +26,14 @@ describe('ToggleSwitch', () => {
 	});
 
 	it('the switch is checked off by default', () => {
-		let toggle = result.getByRole('switch');
-
-		expect(toggle).toHaveAttribute('aria-checked', 'false');
+		ToggleSwitchTestHelpers.assertToggleState('id', false);
 	});
 
 	it('when the switch is clicked it is checked on', async () => {
-		let toggle = result.getByRole('switch');
-
-		await act(() => {
-			fireEvent.click(toggle);
-		});
+		ToggleSwitchTestHelpers.toggleSwitch('id');
 
 		await waitFor(() => {
-			let toggle = result.getByRole('switch');
-
-			expect(toggle).toHaveAttribute('aria-checked', 'true');
+			ToggleSwitchTestHelpers.assertToggleState('id', true);
 		});
 	});
 
@@ -51,10 +44,7 @@ describe('ToggleSwitch', () => {
 
 		expect(toggle).toHaveAttribute('aria-labelledby', 'test');
 
-		let label = result.container.querySelector('#test');
-
-		expect(label).toBeInTheDocument();
-		expect(label).toHaveTextContent('hello');
+		ToggleSwitchTestHelpers.assertHasLabel('test', 'hello');
 	});
 
 	it('by default the wrapper has a test id of the given id', () => {
