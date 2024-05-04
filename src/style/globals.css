@@ -43,6 +43,11 @@ main {
 
 	--color-warning-light-background: #a65a16;
 	--color-warning-light-font: #dec48c;
+
+	/* Base Colors */
+	--color-base-blue: #5f8ada;
+	--color-base-green: #6ada7b;
+	--color-base-red: #b12525;
 }
 
 .dark-theme {
@@ -56,7 +61,7 @@ main {
 
 	--color-background: #111;
 	--color-font: #efefef;
-
+	
 	--color-info-light-background: rgba(16, 112, 150, 0.68);
 	--color-info-light-font: #dedee0;
 
@@ -68,4 +73,10 @@ main {
 
 	--color-warning-light-background: #a65a16;
 	--color-warning-light-font: #dec48c;
+	
+	/* Base Colors */
+	--color-base-blue: #15429f;
+	--color-base-green: #137121;
+	--color-base-red: #b12525;
+	
 }
