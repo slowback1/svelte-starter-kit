@@ -87,4 +87,15 @@ describe('TextBox', () => {
 			TextBoxTestHelpers.assertHasValue('test', 'Rathalos');
 		});
 	});
+
+	it.each(['minlength', 'maxlength'])(
+		'can pass other input props to the input (%s)',
+		(attribute) => {
+			renderComponent({ id: 'test', [attribute]: 'test' });
+
+			let input = result.getByTestId('test');
+
+			expect(input).toHaveAttribute(attribute, 'test');
+		}
+	);
 });
