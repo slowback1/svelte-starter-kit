@@ -1,4 +1,4 @@
-import ConfigService from '$lib/services/ConfigService';
+import ConfigService from '$lib/services/Config/ConfigService';
 
 export default abstract class BaseApi {
 	private async request<T>(url: string, request: RequestInit = {}): Promise<T> {

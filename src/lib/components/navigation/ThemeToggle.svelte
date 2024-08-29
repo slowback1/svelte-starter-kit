@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ToggleSwitch from '$lib/ui/inputs/ToggleSwitch/ToggleSwitch.svelte';
-	import ThemeService, { ColorTheme } from '$lib/services/ThemeService';
+	import ThemeService, { ColorTheme } from '$lib/services/Theme/ThemeService';
 	import { onMount } from 'svelte';
 	import MessageBus from '$lib/bus/MessageBus';
 	import { Messages } from '$lib/bus/Messages';

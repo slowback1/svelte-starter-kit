@@ -4,9 +4,9 @@
 	import getRealStorageProvider from '$lib/bus/realStorageProvider';
 	import Header from '$lib/components/navigation/Header.svelte';
 	import UrlPathProvider, { RealUrlProvider } from '$lib/providers/urlPathProvider';
-	import { ColorTheme } from '$lib/services/ThemeService';
+	import { ColorTheme } from '$lib/services/Theme/ThemeService';
 	import { Messages } from '$lib/bus/Messages';
-	import ConfigService, { type ApplicationConfig } from '$lib/services/ConfigService';
+	import ConfigService, { type ApplicationConfig } from '$lib/services/Config/ConfigService';
 	import ToastWrapper from '$lib/ui/containers/toast/ToastWrapper.svelte';
 
 	let currentTheme: ColorTheme = ColorTheme.Light;

@@ -1,4 +1,4 @@
-import ThemeService, { ColorTheme } from '$lib/services/ThemeService';
+import ThemeService, { ColorTheme } from '$lib/services/Theme/ThemeService';
 import { afterEach, beforeEach } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';

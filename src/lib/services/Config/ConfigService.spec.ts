@@ -1,6 +1,6 @@
 import { beforeEach, vi } from 'vitest';
 import { getFetchMock } from '$lib/testHelpers/getFetchMock';
-import ConfigService, { type ApplicationConfig } from '$lib/services/ConfigService';
+import ConfigService, { type ApplicationConfig } from '$lib/services/Config/ConfigService';
 import { waitFor } from '@testing-library/svelte';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';

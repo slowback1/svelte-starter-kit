@@ -3,7 +3,7 @@ import ThemeToggle from '$lib/components/navigation/ThemeToggle.svelte';
 import { beforeEach } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
-import { ColorTheme } from '$lib/services/ThemeService';
+import { ColorTheme } from '$lib/services/Theme/ThemeService';
 
 describe('ThemeToggle', () => {
 	let result: RenderResult<ThemeToggle>;

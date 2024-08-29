@@ -3,7 +3,7 @@ import { mockApi } from '$lib/testHelpers/getFetchMock';
 import { beforeEach, expect } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
-import ConfigService, { type ApplicationConfig } from '$lib/services/ConfigService';
+import ConfigService, { type ApplicationConfig } from '$lib/services/Config/ConfigService';
 
 class TestApi extends BaseApi {
 	async TestGet() {
