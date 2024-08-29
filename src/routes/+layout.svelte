@@ -8,6 +8,8 @@
 	import { Messages } from '$lib/bus/Messages';
 	import ConfigService, { type ApplicationConfig } from '$lib/services/Config/ConfigService';
 	import ToastWrapper from '$lib/ui/containers/toast/ToastWrapper.svelte';
+	import FeatureFlagService from '$lib/services/FeatureFlag/FeatureFlagService';
+	import ConfigFeatureFlagProvider from '$lib/services/FeatureFlag/ConfigFeatureFlagProvider';
 
 	let currentTheme: ColorTheme = ColorTheme.Light;
 
@@ -15,6 +17,7 @@
 		MessageBus.initialize(getRealStorageProvider());
 		UrlPathProvider.initialize(new RealUrlProvider());
 		ConfigService.initialize();
+		FeatureFlagService.initialize(new ConfigFeatureFlagProvider());
 
 		MessageBus.subscribe<ColorTheme>(
 			Messages.CurrentTheme,

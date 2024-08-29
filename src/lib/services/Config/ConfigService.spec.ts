@@ -4,6 +4,7 @@ import ConfigService, { type ApplicationConfig } from '$lib/services/Config/Conf
 import { waitFor } from '@testing-library/svelte';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
+import { getTestApplicationConfig } from '$lib/testHelpers/testData/testApplicationConfig';
 
 describe('ConfigService', () => {
 	describe('initializing', () => {
@@ -11,7 +12,8 @@ describe('ConfigService', () => {
 
 		beforeEach(async () => {
 			const exampleConfig: ApplicationConfig = {
-				baseUrl: 'value'
+				baseUrl: 'value',
+				featureFlags: []
 			};
 
 			mockFetch = getFetchMock(exampleConfig);
@@ -53,4 +55,24 @@ describe('ConfigService', () => {
 			expect(result).toEqual('value');
 		});
 	});
+
+	describe.each([{}, '', null, undefined, true, 1234, [], NaN])(
+		'when given an invalid config',
+		(config: any) => {
+			beforeEach(() => {
+				MessageBus.sendMessage(Messages.ApplicationConfig, config);
+			});
+
+			it.each(Object.keys(getTestApplicationConfig()))(
+				'returns undefined for any key',
+				(key: keyof ApplicationConfig) => {
+					let service = new ConfigService();
+
+					let result = service.getConfig(key);
+
+					expect(result).toBeUndefined();
+				}
+			);
+		}
+	);
 });
