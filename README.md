@@ -53,6 +53,58 @@ It is usually a good idea to re-run `scripts/initial-setup.sh` after making any 
 
 At runtime, the application will be looking for `config/config.json` for its runtime config.
 
+### Feature Flags
+
+The starter kit has a basic feature flag system in place.  This system allows for the enabling and disabling of features in the app based on a configuration file.  This is useful for enabling and disabling features in the app without needing to deploy new code.  The feature flag system takes in a provider that can be swapped out for a different implementation if desired.  The default implementation makes use of the runtime configuration and `config.json` file to store the feature flags for the given environment.  There is also a mock provider that can be used for testing purposes.
+
+#### Setup
+
+1. If desired, create a new implementation of the `IFeatureFlagProvider` interface, and replace the `FeatureFlagService`'s provider with your new implementation within the root layout file.
+2. However you are storing your feature flags, ensure that each feature flag has at minimum a `name` and a `isEnabled` property.  You may find it useful to keep a static dictionary of all possible feature flags.  One such dictionary is started in `FeatureFlags.ts` in the `src/lib/services/FeatureFlag` directory.
+3. If using the default implementation, it is likely a good idea to keep the `config.example.json` file up to date with a listing of all possible feature flags and their default values.
+
+#### Testing with Feature Flags
+
+Before your test run, initialize the feature flag service with the mock provider.  Code example below:
+
+```ts
+  beforeEach(async () => {
+    let provider = new TestFeatureFlagProvider([
+        createTestFeatureFlag('test1'),
+        createTestFeatureFlag('test2', false)
+    ]);
+    
+    await FeatureFlagService.initialize(provider);
+});
+```
+
+#### Using Feature Flags in Svelte Components
+
+Because the feature flag service loads the data asynchronously on page load, it is likely that the feature flags will not always be loaded by the time the component is rendered.  To handle this, the `FeatureFlagService` class's primary way of accessing feature flags is through a subscriber method.  This subscriber should be called on an `onMount` hook within the Svelte component, like so:
+
+```sveltehtml
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import FeatureFlagService from '$lib/services/FeatureFlag/FeatureFlagService';
+	import { FeatureFlags } from '$lib/services/FeatureFlag/FeatureFlags';
+
+	let showDemo = false;
+
+	onMount(() => {
+		let unsubscribe = FeatureFlagService.subscribeToFeature(
+			FeatureFlags.DEMO_FEATURE_FLAG,
+			(value) => {
+				showDemo = value;
+			}
+		);
+
+		return () => {
+			unsubscribe();
+		};
+	});
+</script>
+```
+
 ### Deploying
 
 The starter kit is set to build as a static site by default.  This should work for websites and web apps with static URLs.  If you need to use dynamic path parameters, or if you would prefer to build a server rendered app instead, follow the steps in the `Switch to a Server Rendered Deployment` section below.

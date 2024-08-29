@@ -12,6 +12,10 @@
 				showDemo = value;
 			}
 		);
+
+		return () => {
+			unsubscribe();
+		};
 	});
 </script>
 
