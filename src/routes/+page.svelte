@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import FeatureFlagService from '$lib/services/FeatureFlag/FeatureFlagService';
 	import { FeatureFlags } from '$lib/services/FeatureFlag/FeatureFlags';
+	import FeatureToggle from '$lib/utils/FeatureToggle.svelte';
 
 	let showDemo = false;
 
@@ -22,6 +23,6 @@
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
-{#if showDemo}
-	<p>Looks like you know about feature flags!</p>
-{/if}
+<FeatureToggle featureFlag={FeatureFlags.DEMO_FEATURE_FLAG}>
+	<p slot="enabled">Looks like you know about feature flags!</p>
+</FeatureToggle>

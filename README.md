@@ -105,6 +105,15 @@ Because the feature flag service loads the data asynchronously on page load, it 
 </script>
 ```
 
+There is a utility component that abstracts most of this way called `FeatureToggle.svelte`.  The component takes advantage of named slots to 'choose' which of its children to render.  To render a child when the feature is enabled, provide the topmost child element a `slot="enabled"` attribute.  To render a child when a feature is disabled, provide the topmost child element a `slot="disabled"` attribute.  An example of how to use this component is below:
+
+```sveltehtml
+    <FeatureToggle featureFlag="test">
+	  <p slot="enabled">Enabled</p>
+	  <p slot="disabled">Disabled</p>
+    </FeatureToggle>
+```
+
 ### Deploying
 
 The starter kit is set to build as a static site by default.  This should work for websites and web apps with static URLs.  If you need to use dynamic path parameters, or if you would prefer to build a server rendered app instead, follow the steps in the `Switch to a Server Rendered Deployment` section below.
