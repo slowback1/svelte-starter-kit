@@ -2,7 +2,7 @@
 	import type {
 		default as AccordionService,
 		AccordionConfig
-	} from '$lib/services/AccordionService';
+	} from '$lib/ui/containers/accordion/AccordionService';
 	import { onMount } from 'svelte';
 	import MessageBus from '$lib/bus/MessageBus';
 	import { Messages } from '$lib/bus/Messages';

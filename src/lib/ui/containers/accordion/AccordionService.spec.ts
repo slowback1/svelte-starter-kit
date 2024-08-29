@@ -1,4 +1,6 @@
-import AccordionService, { type AccordionConfig } from '$lib/services/AccordionService';
+import AccordionService, {
+	type AccordionConfig
+} from '$lib/ui/containers/accordion/AccordionService';
 import { beforeEach } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
