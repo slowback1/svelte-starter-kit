@@ -2,6 +2,8 @@
 	createTestFeatureFlag
 } from '$lib/testHelpers/testFeatureFlagProvider';
 import FeatureFlagService from '$lib/services/FeatureFlag/FeatureFlagService';
+import MessageBus from '$lib/bus/MessageBus';
+import { Messages } from '$lib/bus/Messages';
 
 describe('FeatureFlagService', () => {
 	describe('initializing', () => {
@@ -43,6 +45,16 @@ describe('FeatureFlagService', () => {
 
 			expect(FeatureFlagService.featureFlags).toEqual([]);
 		});
+
+		it('sends a message to the message bus when the feature flags change', async () => {
+			let provider = new TestFeatureFlagProvider([]);
+
+			await FeatureFlagService.initialize(provider);
+
+			let lastMessage = MessageBus.getLastMessage<boolean>(Messages.FeatureFlagsChanged);
+
+			expect(lastMessage).toEqual(true);
+		});
 	});
 
 	describe('checking if a feature is enabled', () => {
@@ -62,7 +74,11 @@ describe('FeatureFlagService', () => {
 		])(
 			'When the feature flag is %featureFlagName% then it should be %shouldBeEnabled%',
 			({ featureFlagName, shouldBeEnabled }) => {
-				let result = FeatureFlagService.isFeatureEnabled(featureFlagName);
+				let result: boolean;
+
+				FeatureFlagService.subscribeToFeature(featureFlagName, (isEnabled) => {
+					result = isEnabled;
+				});
 
 				expect(result).toEqual(shouldBeEnabled);
 			}
