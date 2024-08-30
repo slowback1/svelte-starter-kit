@@ -5,8 +5,6 @@
 	body?: any;
 };
 
-let a = fetch('');
-
 export interface IRequestMiddleware {
 	transformRequest(request: APIRequest): Promise<APIRequest>;
 }
