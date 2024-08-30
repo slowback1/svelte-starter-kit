@@ -21,5 +21,5 @@
 {/if}
 
 {#if !isEnabled}
-	<slot name="disabled">Disabled</slot>
+	<slot name="disabled" />
 {/if}
