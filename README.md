@@ -32,12 +32,19 @@ Note that all the components have intentionally "rough" designs.  The starter ki
 
 ### API
 
-The `baseAPI` class can serve as a basis for all of your project specific data fetching needs.  The class should standardize how requests are made to an application backend, particularly for common tasks such as building authorization headers and converting responses into JS objects that can be used by the rest of the app. 
+The `baseAPI` class can serve as a basis for all of your project specific data fetching needs.  The class should standardize how requests are made to an application backend, particularly for common tasks such as building authorization headers and converting responses into JS objects that can be used by the rest of the app.
+
+The API class transforms requests based on a middleware system.  Each middleware function is called in order, and can modify the request before it is sent, or the response before it is returned to the caller.  This is useful for adding authorization headers and creating the full URL.  
 
 #### Setup
 
 1.  If your project has a version of the API that you can safely develop against locally, update your default configuration. <br /> In `static/config/config.example.json`, replace the `baseUrl` value with the URL of the local version of your API.
-2.  If your API needs some kind of authorization token, set up the logic for including that in requests in the `baseApi` class.  If it is a bearer token, then all you need to do is update the `getBearerToken` method with however you are storing the bearer token (ie: if a logged-in user has a bearer token, you might store that in the message bus).  Additionally, there are unit tests in `baseApi.spec.ts` covering ensuring that the auth header is correctly built.  Update these tests to properly test that your auth headers are being built once you have an implementation in place.
+2.  If your API needs some kind of authorization token, set up the logic for including that in requests in the `AuthorizationMiddleware` class.  If it is a bearer token, then all you need to do is update the `getBearerToken` method with however you are storing the bearer token (ie: if a logged-in user has a bearer token, you might store that in the message bus).  Additionally, there are unit tests in `baseApi.spec.ts` covering ensuring that the auth header is correctly built.  Update these tests to properly test that your auth headers are being built once you have an implementation in place.
+3. If any additional middleware functionality is needed, follow these steps:
+   4. Create a new class that implements the IRequestMiddleware interface.
+   5. Add the new middleware class to the registered middlewares by calling the `addMiddleware` method in the constructor.
+      6. If this middleware should run on all API requests, add it to the `baseApi` class's constructor.
+      7. If this middleware should only run on a specific (set of) API requests, add it to a derived class of `baseApi` that is specific to that set of requests. 
 
 ### Runtime Configuration
 

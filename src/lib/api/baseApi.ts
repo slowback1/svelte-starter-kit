@@ -1,46 +1,62 @@
-import ConfigService from '$lib/services/Config/ConfigService';
+import type { APIRequest, IRequestMiddleware } from '$lib/api/middleware/IRequestMiddleware';
+import AuthorizationMiddleware from '$lib/api/middleware/AuthorizationMiddleware';
+import UrlMiddleware from '$lib/api/middleware/UrlMiddleware';
+import HeaderMiddleware from '$lib/api/middleware/HeaderMiddleware';
 
 export default abstract class BaseApi {
+	private readonly middlewares: IRequestMiddleware[] = [];
+	protected constructor() {
+		this.addMiddleware(new UrlMiddleware());
+		this.addMiddleware(new HeaderMiddleware());
+		this.addMiddleware(new AuthorizationMiddleware());
+	}
+
+	protected addMiddleware(middleware: IRequestMiddleware) {
+		this.middlewares.push(middleware);
+	}
+
 	private async request<T>(url: string, request: RequestInit = {}): Promise<T> {
+		let apiRequest = this.getApiRequest(url, request);
+
+		apiRequest = await this.runMiddlewares(apiRequest);
+
+		let res = await this.runRequest(apiRequest);
+
+		return res.json();
+	}
+
+	private async runRequest(request: APIRequest): Promise<Response> {
 		let options: RequestInit = {
-			method: 'GET',
-			headers: {},
-			...request
+			method: request.method,
+			headers: {
+				...request.headers
+			}
 		};
-		options.headers['Content-Type'] = 'application/json';
-		options.headers['Authorization'] = this.getBearerToken();
 
-		let res = await fetch(this.getFullUrl(url), options);
-		return (await res.json()) as T;
+		if (request.body) {
+			options.body = this.stringifyBody(request.body);
+		}
+
+		return await fetch(request.url, options);
 	}
 
-	private getFullUrl(urlSuffix: string): string {
-		if (process.env.NODE_ENV === 'test') return urlSuffix;
+	private async runMiddlewares(request: APIRequest): Promise<APIRequest> {
+		let transformedRequest = request;
 
-		let baseUrl = this.getBaseUrl();
+		for (let middleware of this.middlewares) {
+			transformedRequest = await middleware.transformRequest(transformedRequest);
+		}
 
-		let baseUrlHasTrailingSlash = baseUrl.endsWith('/');
-		let urlSuffixHasLeadingSlash = urlSuffix.startsWith('/');
-
-		if (!baseUrlHasTrailingSlash && !urlSuffixHasLeadingSlash) return `${baseUrl}/${urlSuffix}`;
-
-		if (baseUrlHasTrailingSlash && urlSuffixHasLeadingSlash)
-			return `${baseUrl}${urlSuffix.substring(1)}`;
-
-		return `${baseUrl}${urlSuffix}`;
+		return transformedRequest;
 	}
 
-	private getBaseUrl(): string {
-		let service = new ConfigService();
-
-		return service.getConfig<string>('baseUrl');
-	}
-
-	private getBearerToken() {
-		//TO-DO: get your token from wherever you get your token, probably the message bus
-		let token = '';
-
-		return `Bearer ${token}`;
+	private getApiRequest(url: string, request: RequestInit): APIRequest {
+		return {
+			body: request.body,
+			headers: {},
+			method: request.method ?? HTTP_METHODS.GET,
+			url: url
+		};
 	}
 
 	private buildPostyRequestInit(body: any, method: string): RequestInit {

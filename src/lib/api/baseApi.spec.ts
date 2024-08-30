@@ -1,11 +1,27 @@
 import BaseApi from '$lib/api/baseApi';
 import { mockApi } from '$lib/testHelpers/getFetchMock';
-import { beforeEach, expect } from 'vitest';
-import MessageBus from '$lib/bus/MessageBus';
-import { Messages } from '$lib/bus/Messages';
-import ConfigService, { type ApplicationConfig } from '$lib/services/Config/ConfigService';
+import { expect } from 'vitest';
+import type { APIRequest, IRequestMiddleware } from '$lib/api/middleware/IRequestMiddleware';
+
+class MockMiddleware implements IRequestMiddleware {
+	public transformMock = vi.fn();
+
+	async transformRequest(request: APIRequest) {
+		this.transformMock(request);
+
+		return request;
+	}
+}
 
 class TestApi extends BaseApi {
+	public mockMiddleware = new MockMiddleware();
+
+	constructor() {
+		super();
+
+		this.addMiddleware(this.mockMiddleware);
+	}
+
 	async TestGet() {
 		return await this.Get('/test');
 	}
@@ -132,5 +148,13 @@ describe('BaseApi', () => {
 		expect(authHeader).toBeDefined();
 		//TO-DO: update this test with the implementation of  the bearer token
 		expect(authHeader).toEqual(`Bearer `);
+	});
+
+	it('runs the middleware added to the child class', async () => {
+		let api = new TestApi();
+
+		await api.TestGet();
+
+		expect(api.mockMiddleware.transformMock).toHaveBeenCalled();
 	});
 });
