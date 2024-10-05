@@ -19,9 +19,9 @@ export default defineConfig({
 
 			return config;
 		},
-		specPattern: 'src/cypress/**/*.feature',
-		supportFolder: 'src/cypress/support',
-		supportFile: 'src/cypress/support/e2e.ts',
+		specPattern: 'cypress/**/*.feature',
+		supportFolder: 'cypress/support',
+		supportFile: 'cypress/support/e2e.ts',
 		baseUrl: 'http://localhost:5173'
 	}
 });

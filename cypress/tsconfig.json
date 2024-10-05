@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": false,
-    "types": ["cypress"],
+    "types": ["cypress", "cypress-axe"],
     "moduleResolution": "bundler",
     "experimentalDecorators": true
   },
