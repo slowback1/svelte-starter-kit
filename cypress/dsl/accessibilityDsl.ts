@@ -18,6 +18,9 @@ export default class AccessibilityDsl extends DSL {
 	}
 
 	private readonly pageUrls: Record<string, string> = {
-		Home: '/'
+		Home: '/',
+		'Demo List': '/demo/list',
+		'Demo Form': '/demo/form',
+		'Demo Content': '/demo/content'
 	};
 }

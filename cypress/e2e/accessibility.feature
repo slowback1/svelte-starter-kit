@@ -8,3 +8,6 @@
       Examples:
         | page |
         | Home |
+        | Demo Form |
+        | Demo List |
+        | Demo Content |
