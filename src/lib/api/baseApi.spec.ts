@@ -37,6 +37,22 @@ class TestApi extends BaseApi {
 	async TestPut(body: any) {
 		return await this.Put('/test', body);
 	}
+
+	async TestGetWithQueryParameters() {
+		return await this.Get('/test', { key: 'value' });
+	}
+
+	async TestPostWithQueryParameters(body: any) {
+		return await this.Post('/test', body, { key: 'value' });
+	}
+
+	async TestPutWithQueryParameters(body: any) {
+		return await this.Put('/test', body, { key: 'value' });
+	}
+
+	async TestDeleteWithQueryParameters() {
+		return await this.Delete('/test', { key: 'value' });
+	}
 }
 
 describe('BaseApi', () => {
@@ -156,5 +172,45 @@ describe('BaseApi', () => {
 		await api.TestGet();
 
 		expect(api.mockMiddleware.transformMock).toHaveBeenCalled();
+	});
+
+	it('appends query parameters to the url', async () => {
+		let mockFetch = mockApi({
+			'/test?key=value': 'hello world'
+		});
+
+		await api.TestGetWithQueryParameters();
+
+		expect(mockFetch).toHaveBeenCalled();
+	});
+
+	it('appends query parameters to the url when posting', async () => {
+		let mockFetch = mockApi({
+			'/test?key=value': 'hello world'
+		});
+
+		await api.TestPostWithQueryParameters({ msg: 'hi' });
+
+		expect(mockFetch).toHaveBeenCalled();
+	});
+
+	it('appends query parameters to the url when putting', async () => {
+		let mockFetch = mockApi({
+			'/test?key=value': 'hello world'
+		});
+
+		await api.TestPutWithQueryParameters({ msg: 'hi' });
+
+		expect(mockFetch).toHaveBeenCalled();
+	});
+
+	it('appends query parameters to the url when deleting', async () => {
+		let mockFetch = mockApi({
+			'/test?key=value': 'hello world'
+		});
+
+		await api.TestDeleteWithQueryParameters();
+
+		expect(mockFetch).toHaveBeenCalled();
 	});
 });
