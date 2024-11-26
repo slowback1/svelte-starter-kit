@@ -9,4 +9,18 @@
 	}
 </script>
 
-<TextBox label={field.label} value={field.value} id={field.id} onChange={(e) => handleChange(e)} />
+<div class="text-filer">
+	<TextBox
+		label={field.label}
+		value={field.value}
+		id={field.id}
+		onChange={(e) => handleChange(e)}
+	/>
+</div>
+
+<style>
+	.text-filer {
+		display: flex;
+		flex-direction: column;
+	}
+</style>

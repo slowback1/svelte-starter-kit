@@ -15,9 +15,35 @@
 </script>
 
 <div class="table-filter">
-	{#each fields as field}
-		<FilterField {...field} />
-	{/each}
-
-	<Button size="small" variant="text" onClick={() => service.resetFields()}>Reset Filters</Button>
+	<div class="table-filter__fields">
+		{#each fields as field}
+			<FilterField {...field} />
+		{/each}
+	</div>
+	<div class="table-filter__reset">
+		<Button size="small" variant="text" onClick={() => service.resetFields()}>Reset Filters</Button>
+	</div>
 </div>
+
+<style>
+	.table-filter {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		border: 1px solid var(--color-font);
+		padding: 1rem;
+		border-radius: 12px;
+	}
+
+	.table-filter__fields {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.table-filter__reset {
+		align-self: flex-end;
+	}
+</style>
