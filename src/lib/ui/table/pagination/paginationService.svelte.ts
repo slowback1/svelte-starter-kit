@@ -76,9 +76,37 @@ export default class PaginationService {
 	}
 
 	public goToLastPage() {
-		const lastPage = Math.ceil(this.totalCount / this.parameters.rowsPerPage);
+		const lastPage = this.getLastPage();
 
 		this.goToPage(lastPage);
+	}
+
+	public shouldDisableNextButton() {
+		return this.parameters.page === this.getLastPage();
+	}
+
+	public shouldDisablePreviousButton() {
+		return this.parameters.page === 1;
+	}
+
+	private getLastPage() {
+		return Math.ceil(this.totalCount / this.parameters.rowsPerPage);
+	}
+
+	public goToNextPage() {
+		const isLastPage = this.parameters.page === this.getLastPage();
+
+		if (!isLastPage) {
+			this.goToPage(this.parameters.page + 1);
+		}
+	}
+
+	public goToPreviousPage() {
+		const isFirstPage = this.parameters.page === 1;
+
+		if (!isFirstPage) {
+			this.goToPage(this.parameters.page - 1);
+		}
 	}
 
 	public updateRowsPerPage(rowsPerPage: number) {

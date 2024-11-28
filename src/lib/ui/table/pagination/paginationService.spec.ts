@@ -178,4 +178,76 @@ describe('PaginationService', () => {
 			expect(service.getPageParameters().page).toEqual(1);
 		});
 	});
+
+	describe('goToNextPage', () => {
+		it('should go to the next page', () => {
+			let service = new PaginationService();
+			service.onDataRetrieved({ totalCount: 100 });
+			service.goToNextPage();
+
+			expect(service.getPageParameters().page).toEqual(2);
+		});
+
+		it("stays on the current page if it's the last page", () => {
+			let service = new PaginationService();
+			service.onDataRetrieved({ totalCount: 100 });
+			service.goToLastPage();
+			service.goToNextPage();
+
+			expect(service.getPageParameters().page).toEqual(10);
+		});
+	});
+
+	describe('goToPreviousPage', () => {
+		it('should go to the previous page', () => {
+			let service = new PaginationService();
+			service.goToPage(5);
+			service.goToPreviousPage();
+
+			expect(service.getPageParameters().page).toEqual(4);
+		});
+
+		it('stays on the first page if the current page is 1', () => {
+			let service = new PaginationService();
+			service.goToPage(1);
+			service.goToPreviousPage();
+
+			expect(service.getPageParameters().page).toEqual(1);
+		});
+	});
+
+	describe('shouldDisableNextButton', () => {
+		it.each([
+			{ page: 1, totalCount: 100, rowsPerPage: 10, expected: false },
+			{ page: 10, totalCount: 100, rowsPerPage: 10, expected: true },
+			{ page: 1, totalCount: 100, rowsPerPage: 20, expected: false },
+			{ page: 5, totalCount: 100, rowsPerPage: 20, expected: true }
+		])(
+			'should return $expected when the page is $page, the totalCount is $totalCount, and the rowsPerPage is $rowsPerPage"',
+			({ page, totalCount, rowsPerPage, expected }) => {
+				let service = new PaginationService();
+				service.updateRowsPerPage(rowsPerPage);
+				service.onDataRetrieved({ totalCount });
+				service.goToPage(page);
+
+				let result = service.shouldDisableNextButton();
+
+				expect(result).toEqual(expected);
+			}
+		);
+	});
+
+	describe('shouldDisablePreviousButton', () => {
+		it.each([
+			{ page: 1, expected: true },
+			{ page: 2, expected: false }
+		])('should return $expected when the page is $page', ({ page, expected }) => {
+			let service = new PaginationService();
+			service.goToPage(page);
+
+			let result = service.shouldDisablePreviousButton();
+
+			expect(result).toEqual(expected);
+		});
+	});
 });

@@ -3,7 +3,7 @@
 
 	export let options: SelectOption[] = [];
 	export let onChange: (value: string) => void = () => {};
-	export let value: string = '';
+	export let value: string | number = '';
 	export let label: string = '';
 	export let id: string = '';
 
