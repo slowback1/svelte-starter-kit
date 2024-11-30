@@ -4,6 +4,10 @@
 
 	const { service }: { service: PaginationService } = $props();
 
+	function onUpdateRowsPerPage(value: string) {
+		service.updateRowsPerPage(Number(value));
+	}
+
 	let currentPageRequest = $derived.by(() => service.getPageParameters());
 	let pageNumbers = $derived.by(() => service.getVisiblePageNumbers());
 	let shouldDisableNextButton = $derived.by(() => service.shouldDisableNextButton());
@@ -54,7 +58,7 @@
 	<Select
 		label="Items per page"
 		id="items-per-page"
-		onChange={(event) => service.updateRowsPerPage(event.target.value)}
+		onChange={onUpdateRowsPerPage}
 		options={service.settings.rowsPerPageOptions.map((opt) => ({ value: opt, label: `${opt}` }))}
 		bind:value={currentPageRequest.rowsPerPage}
 	/>
