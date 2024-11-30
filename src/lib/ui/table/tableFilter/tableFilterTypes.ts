@@ -11,7 +11,8 @@ export type TableFilterField = {
 };
 
 export enum TableFilterFieldType {
-	Text = 'text'
+	Text = 'text',
+	Number = 'number'
 }
 
 export type TableFilterProps = {

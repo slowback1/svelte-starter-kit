@@ -9,17 +9,18 @@
 	}
 </script>
 
-<div class="text-filter">
+<div class="number-filter">
 	<TextBox
 		label={field.label}
 		value={field.value}
 		id={field.id}
 		onChange={(e) => handleChange(e)}
+		type="number"
 	/>
 </div>
 
 <style>
-	.text-filter {
+	.number-filter {
 		display: flex;
 		flex-direction: column;
 	}

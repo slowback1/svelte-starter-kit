@@ -38,3 +38,7 @@ export const WithFiveTextFilters = {
 		})
 	])
 };
+
+export const WithOneNumberFilter = {
+	args: makeProps([getTestTableFilterField({ type: TableFilterFieldType.Number })])
+};
