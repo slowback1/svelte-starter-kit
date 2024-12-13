@@ -1,4 +1,4 @@
-import type IStorageProvider from '$lib/bus/IStorageProvider';
+import type IStorageProvider from '$lib/bus/providers/IStorageProvider';
 import { vi } from 'vitest';
 
 export default function getLocalStorageMock(): IStorageProvider {

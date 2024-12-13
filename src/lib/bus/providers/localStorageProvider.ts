@@ -1,6 +1,6 @@
 import type IStorageProvider from './IStorageProvider';
 
-export default function getRealStorageProvider(): IStorageProvider {
+export default function getLocalStorageProvider(): IStorageProvider {
 	return {
 		getItem: localStorage.getItem.bind(localStorage),
 		setItem: localStorage.setItem.bind(localStorage),

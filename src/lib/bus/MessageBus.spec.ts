@@ -1,5 +1,5 @@
 import MessageBus from '$lib/bus/MessageBus';
-import type IStorageProvider from './IStorageProvider';
+import type IStorageProvider from './providers/IStorageProvider';
 import getLocalStorageMock from '$lib/testHelpers/localStorageMock';
 
 describe('MessageBus', () => {

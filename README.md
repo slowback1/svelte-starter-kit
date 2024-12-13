@@ -22,7 +22,7 @@ The `MessageBus` class is a framework-agnostic way of sending and receiving mess
 
 By default, the `MessageBus` uses `localStorage` as a data persistence layer.  If this is undesired, remove the `MessageBus.initialize` method call in the base `+layout.svelte` to remove it.  This will cause the Message Bus to "forget" events each time the user reloads or leaves the page.
 
-Alternatively, if a different way of persisting message bus data is preferred (for example, session storage instead of local storage), replace the implementation in the `getRealStorageProvider` method, and the message bus will start persisting data through that method instead. 
+Alternatively, if a different way of persisting message bus data is preferred (for example, session storage instead of local storage), create a new implementation of `IStorageProvider` and replace the `getLocalStorageProvider` call in the root layout file with your new implementation.
 
 ### UI Components
 

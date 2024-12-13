@@ -1,4 +1,4 @@
-import type IStorageProvider from './IStorageProvider';
+import type IStorageProvider from './providers/IStorageProvider';
 
 type SubscriberCallback<T = any> = (value?: T) => void | Promise<void>;
 

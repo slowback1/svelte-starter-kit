@@ -5,7 +5,7 @@ import { beforeEach } from 'vitest';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 import getLocalStorageMock from '$lib/testHelpers/localStorageMock';
-import type IStorageProvider from '$lib/bus/IStorageProvider';
+import type IStorageProvider from '$lib/bus/providers/IStorageProvider';
 
 describe('AccordionService', () => {
 	let service: AccordionService;

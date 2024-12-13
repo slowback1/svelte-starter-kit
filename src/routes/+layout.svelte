@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import MessageBus from '$lib/bus/MessageBus';
-	import getRealStorageProvider from '$lib/bus/realStorageProvider';
+	import getLocalStorageProvider from '$lib/bus/providers/localStorageProvider';
 	import Header from '$lib/components/navigation/Header.svelte';
 	import UrlPathProvider, { RealUrlProvider } from '$lib/providers/urlPathProvider';
 	import { ColorTheme } from '$lib/services/Theme/ThemeService';
@@ -14,7 +14,7 @@
 	let currentTheme: ColorTheme = ColorTheme.Light;
 
 	onMount(() => {
-		MessageBus.initialize(getRealStorageProvider());
+		MessageBus.initialize(getLocalStorageProvider());
 		UrlPathProvider.initialize(new RealUrlProvider());
 		ConfigService.initialize();
 		FeatureFlagService.initialize(new ConfigFeatureFlagProvider());
