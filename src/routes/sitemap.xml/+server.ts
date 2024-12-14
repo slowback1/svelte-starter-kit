@@ -1,4 +1,4 @@
-﻿export const site = 'https://yourdomain.com';
+﻿const site = 'https://yourdomain.com';
 
 const pages: string[] = [];
 

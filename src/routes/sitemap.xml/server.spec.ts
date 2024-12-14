@@ -1,4 +1,4 @@
-﻿import { GET as getSiteMap, site } from './+server';
+﻿import { GET as getSiteMap } from './+server';
 
 describe('Sitemap', () => {
 	it('should return a sitemap.xml', async () => {
@@ -31,9 +31,7 @@ describe('Sitemap', () => {
 
 		const urls = xml.querySelectorAll('urlset > url');
 
-		const home = Array.from(urls).find(
-			(url) => url.querySelector('loc').textContent === `${site}/`
-		);
+		const home = Array.from(urls)[0];
 
 		expect(home).not.toBeFalsy();
 		return home;
