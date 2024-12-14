@@ -1,12 +1,12 @@
-﻿import getLocalStorageProvider from './localStorageProvider';
-import type IStorageProvider from './IStorageProvider';
+﻿import type IStorageProvider from './IStorageProvider';
+import LocalStorageProvider from '$lib/bus/providers/localStorageProvider';
 
 describe('getLocalStorageProvider', () => {
 	let storageProvider: IStorageProvider;
 
 	beforeEach(() => {
 		localStorage.clear();
-		storageProvider = getLocalStorageProvider();
+		storageProvider = new LocalStorageProvider();
 	});
 
 	test('should get an item from localStorage', () => {
