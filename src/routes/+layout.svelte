@@ -26,6 +26,10 @@
 	});
 </script>
 
+<svelte:head>
+	<meta name="description" content="The Svelte Starter Kit!!!" />
+</svelte:head>
+
 <div
 	class:light-theme={currentTheme === ColorTheme.Light}
 	class:dark-theme={currentTheme === ColorTheme.Dark}
