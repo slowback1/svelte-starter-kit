@@ -4,8 +4,8 @@ import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-prepro
 import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
 
 export default defineConfig({
-	fixturesFolder: 'src/cypress/fixtures',
-	supportFolder: 'src/cypress/support',
+	fixturesFolder: 'fixtures',
+	supportFolder: 'support',
 	e2e: {
 		setupNodeEvents: async (on, config) => {
 			await addCucumberPreprocessorPlugin(on, config);
@@ -19,9 +19,9 @@ export default defineConfig({
 
 			return config;
 		},
-		specPattern: 'cypress/**/*.feature',
-		supportFolder: 'cypress/support',
-		supportFile: 'cypress/support/e2e.ts',
+		specPattern: 'e2e/**/*.feature',
+		supportFolder: 'support',
+		supportFile: 'support/e2e.ts',
 		baseUrl: 'http://localhost:5173'
 	}
 });
