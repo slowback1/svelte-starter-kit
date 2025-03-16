@@ -16,7 +16,8 @@
     "build:ci": "vite build",
     "test:ci": "vitest --reporter=junit --watch=false --outputFile=./testOutput/results.xml",
     "cypress:open": "npx cypress open",
-    "eslint": "eslint . --ext .js,.ts,.svelte"
+    "eslint": "eslint . --ext .js,.ts,.svelte",
+    "eslint:fix": "eslint . --ext .js,.ts,.svelte --fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

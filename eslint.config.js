@@ -4,8 +4,12 @@ import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 import svelteConfig from './svelte.config.js';
+import { globalIgnores } from 'eslint/config';
+
+const maximumComplexity = 5;
 
 export default ts.config(
+	globalIgnores(['build', 'dist', 'node_modules', '.svelte-kit']),
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs.recommended,
@@ -42,8 +46,31 @@ export default ts.config(
 	},
 	{
 		rules: {
-			// Override or add rule settings here, such as:
-			// 'svelte/rule-name': 'error'
+			// Generic JS/TS rules
+			'default-case': 'error',
+			'default-case-last': 'error',
+			'no-await-in-loop': 'error',
+			'no-magic-numbers': [
+				'error',
+				{
+					ignoreDefaultValues: true,
+					ignoreArrayIndexes: true,
+					ignoreClassFieldInitialValues: true,
+					ignore: [0, 1]
+				}
+			],
+			'no-multi-assign': 'error',
+			'no-nested-ternary': 'error',
+			complexity: ['error', { max: maximumComplexity, variant: 'modified' }],
+
+			//Svelte-specific rules
+			'svelte/no-dom-manipulating': 'error'
+		}
+	},
+	{
+		files: ['**/*.spec.ts', '**/*.stories.ts'],
+		rules: {
+			'no-magic-numbers': 'off'
 		}
 	}
 );
