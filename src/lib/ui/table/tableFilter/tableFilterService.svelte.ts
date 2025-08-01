@@ -39,12 +39,12 @@ export default class TableFilterService {
 	}
 
 	private filterFields() {
-		let fieldMap = this.buildFieldMap();
+		const fieldMap = this.buildFieldMap();
 		this.onFilter(fieldMap);
 	}
 
 	private buildFieldMap() {
-		let fieldMap: Record<string, any> = {};
+		const fieldMap: Record<string, any> = {};
 
 		this.fields.forEach((field) => {
 			fieldMap[field.id] = field.value;

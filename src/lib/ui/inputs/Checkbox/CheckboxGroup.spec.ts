@@ -7,7 +7,7 @@ describe('CheckboxGroup', () => {
 	let result: RenderResult<CheckboxGroup>;
 
 	function renderComponent(overrides: Partial<ComponentProps<CheckboxGroup>> = {}) {
-		let props = {
+		const props = {
 			groupLabel: 'test',
 			...overrides
 		};
@@ -22,7 +22,7 @@ describe('CheckboxGroup', () => {
 	});
 
 	it('renders a fieldset to group the checkboxes in', () => {
-		let fieldSet = result.container.querySelector('fieldset');
+		const fieldSet = result.container.querySelector('fieldset');
 
 		expect(fieldSet).toBeInTheDocument();
 	});
@@ -30,7 +30,7 @@ describe('CheckboxGroup', () => {
 	it('renders a legend with the given label as text', () => {
 		renderComponent({ groupLabel: 'Example Text' });
 
-		let legend = result.container.querySelector('legend');
+		const legend = result.container.querySelector('legend');
 
 		expect(legend).toBeInTheDocument();
 		expect(legend).toHaveTextContent('Example Text');
@@ -39,13 +39,13 @@ describe('CheckboxGroup', () => {
 	it("renders a custom class for horizontal alignment when given a 'row' alignment prop", () => {
 		renderComponent({ align: 'row' });
 
-		let wrapper = result.getByTestId('checkbox-group__checkboxes');
+		const wrapper = result.getByTestId('checkbox-group__checkboxes');
 
 		expect(wrapper).toHaveClass('checkbox-group__checkboxes-row');
 	});
 
 	it("does not have the 'row' class by default", () => {
-		let wrapper = result.getByTestId('checkbox-group__checkboxes');
+		const wrapper = result.getByTestId('checkbox-group__checkboxes');
 
 		expect(wrapper).not.toHaveClass('checkbox-group__checkboxes-row');
 	});

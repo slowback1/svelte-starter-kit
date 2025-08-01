@@ -23,7 +23,7 @@ describe('ToastService', () => {
 			message: 'hello world'
 		});
 
-		let toasts = getCurrentToasts();
+		const toasts = getCurrentToasts();
 
 		expect(toasts.length).toEqual(1);
 		expect(toasts[0].message).toEqual('hello world');
@@ -37,7 +37,7 @@ describe('ToastService', () => {
 			message: 'hello world'
 		});
 
-		let toasts = getCurrentToasts();
+		const toasts = getCurrentToasts();
 
 		expect(toasts.length).toEqual(2);
 	});
@@ -47,7 +47,7 @@ describe('ToastService', () => {
 			message: 'hello world'
 		});
 
-		let toasts = getCurrentToasts();
+		const toasts = getCurrentToasts();
 
 		expect(toasts[0].variant).toEqual(ToastVariant.info);
 	});
@@ -60,7 +60,7 @@ describe('ToastService', () => {
 				variant
 			});
 
-			let toasts = getCurrentToasts();
+			const toasts = getCurrentToasts();
 
 			expect(toasts[0].variant).toEqual(variant);
 		}
@@ -77,7 +77,7 @@ describe('ToastService', () => {
 
 		service.RemoveToast(0);
 
-		let toasts = getCurrentToasts();
+		const toasts = getCurrentToasts();
 
 		expect(toasts.length).toEqual(0);
 	});
@@ -88,7 +88,7 @@ describe('ToastService', () => {
 
 		service.RemoveToast(1);
 
-		let toasts = getCurrentToasts();
+		const toasts = getCurrentToasts();
 
 		expect(toasts.length).toEqual(1);
 		expect(toasts[0].message).toEqual('hello');

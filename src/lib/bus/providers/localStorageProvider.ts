@@ -10,7 +10,7 @@ export default class LocalStorageProvider implements IStorageProvider {
 	}
 
 	getStore() {
-		let keys = Object.keys(localStorage);
+		const keys = Object.keys(localStorage);
 
 		return keys.reduce((map, key) => {
 			map[key] = localStorage.getItem(key);

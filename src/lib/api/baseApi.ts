@@ -24,13 +24,13 @@ export default abstract class BaseApi {
 
 		apiRequest = await this.runMiddlewares(apiRequest);
 
-		let res = await this.runRequest(apiRequest);
+		const res = await this.runRequest(apiRequest);
 
 		return res.json();
 	}
 
 	private async runRequest(request: APIRequest): Promise<Response> {
-		let options: RequestInit = {
+		const options: RequestInit = {
 			method: request.method,
 			headers: {
 				...request.headers
@@ -47,7 +47,7 @@ export default abstract class BaseApi {
 	private async runMiddlewares(request: APIRequest): Promise<APIRequest> {
 		let transformedRequest = request;
 
-		for (let middleware of this.middlewares) {
+		for (const middleware of this.middlewares) {
 			transformedRequest = await middleware.transformRequest(transformedRequest);
 		}
 
@@ -69,7 +69,7 @@ export default abstract class BaseApi {
 		method: string,
 		queryParameters: Record<string, string>
 	): RequestParameters {
-		let stringifedBody = this.stringifyBody(body);
+		const stringifedBody = this.stringifyBody(body);
 
 		return {
 			body: stringifedBody,

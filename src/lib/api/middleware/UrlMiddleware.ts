@@ -9,7 +9,7 @@ export default class UrlMiddleware implements IRequestMiddleware {
 	}
 
 	private getFullUrl(urlSuffix: string): string {
-		let prefix = this.getBaseUrl();
+		const prefix = this.getBaseUrl();
 
 		return `${this.stripTrailingSlash(prefix)}/${this.stripLeadingSlash(urlSuffix)}`;
 	}
@@ -31,9 +31,9 @@ export default class UrlMiddleware implements IRequestMiddleware {
 	}
 
 	private getBaseUrl(): string {
-		let service = new ConfigService();
+		const service = new ConfigService();
 
-		let baseUrl = service.getConfig<string>('baseUrl');
+		const baseUrl = service.getConfig<string>('baseUrl');
 
 		if (!baseUrl || typeof baseUrl !== 'string') return '/';
 

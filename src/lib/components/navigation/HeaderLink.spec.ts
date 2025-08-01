@@ -10,7 +10,7 @@ describe('HeaderLink', () => {
 	function renderComponent(overrides: any = {}) {
 		if (result) result.unmount();
 
-		let props = {
+		const props = {
 			href: '/',
 			label: 'label',
 			...overrides
@@ -26,7 +26,7 @@ describe('HeaderLink', () => {
 	});
 
 	it('renders a link with the given href and label', () => {
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).toHaveTextContent('label');
 		expect(link).toHaveAttribute('href', '/');
@@ -35,7 +35,7 @@ describe('HeaderLink', () => {
 	it("the link does not have an 'active' class when the href does not match with the current window location", () => {
 		renderComponent({ href: '/not-matching' });
 
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).not.toHaveClass('header-link__active');
 	});
@@ -45,7 +45,7 @@ describe('HeaderLink', () => {
 
 		renderComponent({ href: '/test' });
 
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).toHaveClass('header-link__active');
 	});

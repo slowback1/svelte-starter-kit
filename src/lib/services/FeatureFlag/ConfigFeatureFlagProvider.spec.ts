@@ -11,7 +11,7 @@ describe('ConfigFeatureFlagProvider', () => {
 
 	describe('when there are no feature flags in the config', () => {
 		beforeEach(() => {
-			let config = getTestApplicationConfig();
+			const config = getTestApplicationConfig();
 			config.featureFlags = undefined;
 
 			MessageBus.sendMessage(Messages.ApplicationConfig, config);
@@ -20,7 +20,7 @@ describe('ConfigFeatureFlagProvider', () => {
 		});
 
 		it("returns an empty array if there aren't any feature flags in the config", async () => {
-			let result = await provider.getFeatureFlags();
+			const result = await provider.getFeatureFlags();
 
 			expect(result).toEqual([]);
 		});
@@ -32,7 +32,7 @@ describe('ConfigFeatureFlagProvider', () => {
 		beforeEach(() => {
 			featureFlags = [createTestFeatureFlag('test1'), createTestFeatureFlag('test2', false)];
 
-			let config = getTestApplicationConfig({ featureFlags });
+			const config = getTestApplicationConfig({ featureFlags });
 
 			MessageBus.sendMessage(Messages.ApplicationConfig, config);
 		});
@@ -40,7 +40,7 @@ describe('ConfigFeatureFlagProvider', () => {
 		it('returns the feature flags from the config', async () => {
 			provider = new ConfigFeatureFlagProvider();
 
-			let result = await provider.getFeatureFlags();
+			const result = await provider.getFeatureFlags();
 
 			expect(result).toEqual(featureFlags);
 		});
@@ -66,7 +66,7 @@ describe('ConfigFeatureFlagProvider', () => {
 		});
 
 		it('returns an empty array if the config is not a feature flag array', async () => {
-			let result = await provider.getFeatureFlags();
+			const result = await provider.getFeatureFlags();
 
 			expect(result).toEqual([]);
 		});

@@ -32,7 +32,7 @@ export default class ThemeService {
 
 	private prefersDarkColorScheme(): boolean {
 		if (!!window && window.matchMedia) {
-			let result = window.matchMedia('prefers-color-scheme: dark');
+			const result = window.matchMedia('prefers-color-scheme: dark');
 
 			return result.matches;
 		}

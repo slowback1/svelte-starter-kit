@@ -22,21 +22,21 @@ describe('AccordionService', () => {
 	}
 
 	it('initializes the config for the accordion in the message bus', () => {
-		let config = getCurrentConfig();
+		const config = getCurrentConfig();
 
 		expect(config.has('test')).is.true;
 	});
 
 	it('does not try to store the data in the storage provider', () => {
-		let storedValue = storageProvider.getItem(Messages.AccordionConfig);
+		const storedValue = storageProvider.getItem(Messages.AccordionConfig);
 
 		expect(storedValue).to.be.undefined;
 	});
 
 	it('does not reinitialize the message bus if a second accordion service is present', () => {
-		let service2 = new AccordionService('test2');
+		const service2 = new AccordionService('test2');
 
-		let config = getCurrentConfig();
+		const config = getCurrentConfig();
 
 		expect(config.has('test')).is.true;
 		expect(config.has('test2')).is.true;
@@ -45,7 +45,7 @@ describe('AccordionService', () => {
 	it('can register a config item', () => {
 		service.registerConfigItem('label 1');
 
-		let config = getCurrentConfig().get('test');
+		const config = getCurrentConfig().get('test');
 
 		expect(config.items.length).toEqual(1);
 		expect(config.items[0].name).toEqual('label 1');
@@ -56,7 +56,7 @@ describe('AccordionService', () => {
 		service.registerConfigItem('label 1');
 		service.registerConfigItem('label 1');
 
-		let config = getCurrentConfig().get('test');
+		const config = getCurrentConfig().get('test');
 
 		expect(config.items.length).toEqual(1);
 	});
@@ -71,9 +71,9 @@ describe('AccordionService', () => {
 		it('can open an item', () => {
 			service.toggleItem('1');
 
-			let config = getCurrentConfig().get('test');
+			const config = getCurrentConfig().get('test');
 
-			let item = config.items.find((i) => i.name === '1');
+			const item = config.items.find((i) => i.name === '1');
 
 			expect(item.isOpen).toEqual(true);
 		});
@@ -100,9 +100,9 @@ describe('AccordionService', () => {
 			service.toggleItem('1');
 			service.toggleItem('2');
 
-			let config = getCurrentConfig().get('test');
+			const config = getCurrentConfig().get('test');
 
-			let item = config.items.find((i) => i.name === '1');
+			const item = config.items.find((i) => i.name === '1');
 
 			expect(item.isOpen).toEqual(false);
 		});

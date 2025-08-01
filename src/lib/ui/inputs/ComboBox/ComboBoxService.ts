@@ -32,11 +32,11 @@ export default class ComboBoxService<T> {
 			.map((opt, index) => ({ ...opt, id: index }))
 			.filter((opt) => opt.label.toLowerCase().includes(this.value.toLowerCase()))
 			.sort((a, b) => {
-				let labelA = a.label;
-				let labelB = b.label;
+				const labelA = a.label;
+				const labelB = b.label;
 
-				let valueStartsWithA = labelA.startsWith(this.value);
-				let valueStartsWithB = labelB.startsWith(this.value);
+				const valueStartsWithA = labelA.startsWith(this.value);
+				const valueStartsWithB = labelB.startsWith(this.value);
 
 				return valueStartsWithA && !valueStartsWithB
 					? -1
@@ -109,7 +109,7 @@ export default class ComboBoxService<T> {
 	}
 
 	private moveFocusUp() {
-		let currentIndex = this.focusedOption?.id ?? 0;
+		const currentIndex = this.focusedOption?.id ?? 0;
 
 		if (currentIndex === 0) return;
 
@@ -117,9 +117,9 @@ export default class ComboBoxService<T> {
 	}
 
 	private moveFocusDown() {
-		let options = this.getOptions();
+		const options = this.getOptions();
 
-		let currentIndex = this.focusedOption?.id ?? options.length - 1;
+		const currentIndex = this.focusedOption?.id ?? options.length - 1;
 
 		if (currentIndex === options.length - 1) return;
 

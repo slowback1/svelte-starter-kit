@@ -9,7 +9,7 @@ describe('String Utilities', () => {
 			['    abc   ', 'abc'],
 			['söme stüff with áccènts', 'some-stuff-with-accents']
 		])('with input %s gets output %s', (input, expectedOutput) => {
-			let result = slugify(input);
+			const result = slugify(input);
 
 			expect(result).toEqual(expectedOutput);
 		});

@@ -6,24 +6,24 @@ import doNothing from '$lib/utils/doNothing';
 describe('PaginationService', () => {
 	describe('on construction', () => {
 		it('should expose the given settings', () => {
-			let service = new PaginationService({ rowsPerPageOptions: [10, 20, 30] });
+			const service = new PaginationService({ rowsPerPageOptions: [10, 20, 30] });
 
 			expect(service.settings.rowsPerPageOptions).toEqual([10, 20, 30]);
 		});
 
 		it('initializes the total count to 0', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 
 			expect(service.totalCount).toEqual(0);
 		});
 
 		it('should normalize the rows per page options to 10, 25, 50, 100 if not provided', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 
 			expect(service.settings.rowsPerPageOptions).toEqual([10, 25, 50, 100]);
 		});
 		it('normalizes the onPageChange callback to a no-op if not provided', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 
 			expect(service.settings.onPageChange).toEqual(doNothing);
 		});
@@ -32,7 +32,7 @@ describe('PaginationService', () => {
 			let parameters: PaginationRequestParameters;
 
 			beforeEach(() => {
-				let service = new PaginationService();
+				const service = new PaginationService();
 				parameters = service.getPageParameters();
 			});
 
@@ -45,14 +45,14 @@ describe('PaginationService', () => {
 			});
 
 			it('instead defaults to the first rows per page option if provided', () => {
-				let service = new PaginationService({ rowsPerPageOptions: [20, 30] });
+				const service = new PaginationService({ rowsPerPageOptions: [20, 30] });
 				parameters = service.getPageParameters();
 
 				expect(parameters.rowsPerPage).toEqual(20);
 			});
 
 			it('should default to 10 if the rows per page array is empty', () => {
-				let service = new PaginationService({ rowsPerPageOptions: [] });
+				const service = new PaginationService({ rowsPerPageOptions: [] });
 				parameters = service.getPageParameters();
 
 				expect(parameters.rowsPerPage).toEqual(10);
@@ -62,7 +62,7 @@ describe('PaginationService', () => {
 
 	describe('onDataRetrieved', () => {
 		it('should update the total count', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.onDataRetrieved({ totalCount: 100 });
 
 			expect(service.totalCount).toEqual(100);
@@ -85,11 +85,11 @@ describe('PaginationService', () => {
 		])(
 			'should return the visible page numbers when the current page is $currentPage, the rows per page is $rowsPerPage, the total count is $totalCount',
 			({ currentPage, rowsPerPage, totalCount, visiblePages }) => {
-				let service = new PaginationService({ rowsPerPageOptions: [rowsPerPage] });
+				const service = new PaginationService({ rowsPerPageOptions: [rowsPerPage] });
 				service.onDataRetrieved({ totalCount });
 				service.goToPage(currentPage);
 
-				let result = service.getVisiblePageNumbers();
+				const result = service.getVisiblePageNumbers();
 
 				expect(result).toEqual(visiblePages);
 			}
@@ -98,15 +98,15 @@ describe('PaginationService', () => {
 
 	describe('goToPage', () => {
 		it('should update the current page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(5);
 
 			expect(service.getPageParameters().page).toEqual(5);
 		});
 
 		it('calls onPageChange with the page number', () => {
-			let onPageChange = vi.fn();
-			let service = new PaginationService({ onPageChange });
+			const onPageChange = vi.fn();
+			const service = new PaginationService({ onPageChange });
 
 			service.goToPage(5);
 
@@ -116,7 +116,7 @@ describe('PaginationService', () => {
 
 	describe('goToFirstPage', () => {
 		it('should go to the first page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(5);
 			service.goToFirstPage();
 
@@ -124,8 +124,8 @@ describe('PaginationService', () => {
 		});
 
 		it('calls onPageChange with the page number', () => {
-			let onPageChange = vi.fn();
-			let service = new PaginationService({ onPageChange });
+			const onPageChange = vi.fn();
+			const service = new PaginationService({ onPageChange });
 
 			service.goToFirstPage();
 
@@ -135,7 +135,7 @@ describe('PaginationService', () => {
 
 	describe('goToLastPage', () => {
 		it('should go to the last page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.onDataRetrieved({ totalCount: 100 });
 			service.goToLastPage();
 
@@ -143,8 +143,8 @@ describe('PaginationService', () => {
 		});
 
 		it('calls onPageChange with the page number', () => {
-			let onPageChange = vi.fn();
-			let service = new PaginationService({ onPageChange });
+			const onPageChange = vi.fn();
+			const service = new PaginationService({ onPageChange });
 
 			service.onDataRetrieved({ totalCount: 100 });
 			service.goToLastPage();
@@ -155,15 +155,15 @@ describe('PaginationService', () => {
 
 	describe('updateRowsPerPage', () => {
 		it('should update the rows per page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.updateRowsPerPage(20);
 
 			expect(service.getPageParameters().rowsPerPage).toEqual(20);
 		});
 
 		it('should call onPageChange with the new rows per page', () => {
-			let onPageChange = vi.fn();
-			let service = new PaginationService({ onPageChange });
+			const onPageChange = vi.fn();
+			const service = new PaginationService({ onPageChange });
 
 			service.updateRowsPerPage(20);
 
@@ -171,7 +171,7 @@ describe('PaginationService', () => {
 		});
 
 		it('changes the page number to 1', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(5);
 			service.updateRowsPerPage(20);
 
@@ -181,7 +181,7 @@ describe('PaginationService', () => {
 
 	describe('goToNextPage', () => {
 		it('should go to the next page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.onDataRetrieved({ totalCount: 100 });
 			service.goToNextPage();
 
@@ -189,7 +189,7 @@ describe('PaginationService', () => {
 		});
 
 		it("stays on the current page if it's the last page", () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.onDataRetrieved({ totalCount: 100 });
 			service.goToLastPage();
 			service.goToNextPage();
@@ -200,7 +200,7 @@ describe('PaginationService', () => {
 
 	describe('goToPreviousPage', () => {
 		it('should go to the previous page', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(5);
 			service.goToPreviousPage();
 
@@ -208,7 +208,7 @@ describe('PaginationService', () => {
 		});
 
 		it('stays on the first page if the current page is 1', () => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(1);
 			service.goToPreviousPage();
 
@@ -225,12 +225,12 @@ describe('PaginationService', () => {
 		])(
 			'should return $expected when the page is $page, the totalCount is $totalCount, and the rowsPerPage is $rowsPerPage"',
 			({ page, totalCount, rowsPerPage, expected }) => {
-				let service = new PaginationService();
+				const service = new PaginationService();
 				service.updateRowsPerPage(rowsPerPage);
 				service.onDataRetrieved({ totalCount });
 				service.goToPage(page);
 
-				let result = service.shouldDisableNextButton();
+				const result = service.shouldDisableNextButton();
 
 				expect(result).toEqual(expected);
 			}
@@ -242,10 +242,10 @@ describe('PaginationService', () => {
 			{ page: 1, expected: true },
 			{ page: 2, expected: false }
 		])('should return $expected when the page is $page', ({ page, expected }) => {
-			let service = new PaginationService();
+			const service = new PaginationService();
 			service.goToPage(page);
 
-			let result = service.shouldDisablePreviousButton();
+			const result = service.shouldDisablePreviousButton();
 
 			expect(result).toEqual(expected);
 		});

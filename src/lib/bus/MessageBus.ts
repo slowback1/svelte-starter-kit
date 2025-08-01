@@ -14,7 +14,7 @@ class MessageBusConfiguration {
 	}
 
 	shouldStoreDataForMessage(message: string) {
-		let hasANoStorageMessage = this.noStorageMessages[message] ?? false;
+		const hasANoStorageMessage = this.noStorageMessages[message] ?? false;
 
 		return !hasANoStorageMessage;
 	}
@@ -30,10 +30,10 @@ export default class MessageBus {
 		this.storageProvider = storageProvider;
 		this.configure = new MessageBusConfiguration();
 
-		let storedValues = storageProvider.getStore();
+		const storedValues = storageProvider.getStore();
 
 		Object.keys(storedValues).forEach((key) => {
-			let value = this.tryParseJson(storedValues[key]);
+			const value = this.tryParseJson(storedValues[key]);
 
 			this.sendMessage(key, value);
 		});
@@ -75,7 +75,7 @@ export default class MessageBus {
 	}
 
 	static clearAll() {
-		let messages = Object.keys(this.messageLog);
+		const messages = Object.keys(this.messageLog);
 
 		messages.forEach((message) => this.clear(message));
 	}
@@ -88,15 +88,15 @@ export default class MessageBus {
 		if (!this.storageProvider) return;
 		if (!this.configure.shouldStoreDataForMessage(message)) return;
 
-		let value = this.messageLog[message];
+		const value = this.messageLog[message];
 
-		let valueToStore = typeof value === 'string' ? value : JSON.stringify(value);
+		const valueToStore = typeof value === 'string' ? value : JSON.stringify(value);
 
 		this.storageProvider.setItem(message, valueToStore);
 	}
 	private static async notifySubscribersAsync(message: string) {
-		let subscriberList = this.subscribers[message];
-		let value = this.messageLog[message];
+		const subscriberList = this.subscribers[message];
+		const value = this.messageLog[message];
 
 		if (subscriberList)
 			for (const sub of subscriberList) {
@@ -104,8 +104,8 @@ export default class MessageBus {
 			}
 	}
 	private static notifySubscribers(message: string) {
-		let subscriberList = this.subscribers[message];
-		let value = this.messageLog[message];
+		const subscriberList = this.subscribers[message];
+		const value = this.messageLog[message];
 
 		if (subscriberList)
 			subscriberList.forEach((sub) => {

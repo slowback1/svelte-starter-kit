@@ -5,7 +5,7 @@ import { Messages } from '$lib/bus/Messages';
 
 describe('ThemeService', () => {
 	let service: ThemeService;
-	let actualMatchMedia = window.matchMedia;
+	const actualMatchMedia = window.matchMedia;
 
 	function initializeService(clearMessages: boolean = true) {
 		if (clearMessages) MessageBus.clearAll();

@@ -16,7 +16,7 @@
 	const isSmall = size === 'small';
 	const isLarge = size === 'large';
 
-	const tag = !!href ? 'a' : 'button';
+	const tag = href ? 'a' : 'button';
 	const role = tag === 'a' ? 'link' : 'button';
 </script>
 

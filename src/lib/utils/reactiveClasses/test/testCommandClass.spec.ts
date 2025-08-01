@@ -2,13 +2,13 @@ import TestCommandClass from '$lib/utils/reactiveClasses/test/testCommandClass';
 
 describe('TestCommandClass', () => {
 	it('will set the value in the constructor', () => {
-		let cmd = new TestCommandClass('test');
+		const cmd = new TestCommandClass('test');
 
 		expect(cmd.value).toEqual('test');
 	});
 
 	it('can clear the value', () => {
-		let cmd = new TestCommandClass('test');
+		const cmd = new TestCommandClass('test');
 
 		cmd.clear();
 
@@ -16,7 +16,7 @@ describe('TestCommandClass', () => {
 	});
 
 	it('can add to the value', () => {
-		let cmd = new TestCommandClass('test');
+		const cmd = new TestCommandClass('test');
 
 		cmd.addLetter('t');
 
@@ -24,7 +24,7 @@ describe('TestCommandClass', () => {
 	});
 
 	it('can set the value', () => {
-		let cmd = new TestCommandClass('test');
+		const cmd = new TestCommandClass('test');
 
 		cmd.setValueInvisibly('t');
 

@@ -12,7 +12,7 @@ describe('MessageBus', () => {
 	});
 
 	it('can subscribe to a message', () => {
-		let unsubscribe = MessageBus.subscribe('test_message', (value) => {});
+		const unsubscribe = MessageBus.subscribe('test_message', (value) => {});
 
 		expect(unsubscribe).toBeDefined();
 		expect(unsubscribe).toBeTypeOf('function');
@@ -35,7 +35,7 @@ describe('MessageBus', () => {
 	it('after unsubscribing from a message, the subscriber callback no longer gets called', () => {
 		let receivedValue = '';
 
-		let unsubscribe = MessageBus.subscribe('test_message', (value) => (receivedValue = value));
+		const unsubscribe = MessageBus.subscribe('test_message', (value) => (receivedValue = value));
 
 		MessageBus.sendMessage('test_message', 'hello world');
 
@@ -49,7 +49,7 @@ describe('MessageBus', () => {
 	it('can clear a message', () => {
 		let receivedValue = '';
 
-		let unsubscribe = MessageBus.subscribe('test_message', (value) => (receivedValue = value));
+		const unsubscribe = MessageBus.subscribe('test_message', (value) => (receivedValue = value));
 
 		MessageBus.sendMessage('test_message', 'hello world');
 
@@ -61,7 +61,7 @@ describe('MessageBus', () => {
 	it('when sending messages, stores the last message in the given IStorageProvider', () => {
 		MessageBus.sendMessage('test_message', 'hello world');
 
-		let storedValue = storageProvider.getItem('test_message');
+		const storedValue = storageProvider.getItem('test_message');
 
 		expect(storedValue).toEqual('hello world');
 	});
@@ -91,7 +91,7 @@ describe('MessageBus', () => {
 	it('can get the most recently published message', () => {
 		MessageBus.sendMessage('test_message', 'value');
 
-		let value = MessageBus.getLastMessage('test_message');
+		const value = MessageBus.getLastMessage('test_message');
 
 		expect(value).toEqual('value');
 	});
@@ -99,7 +99,7 @@ describe('MessageBus', () => {
 	it('setting a non-string message stringifies it in the storage provider', () => {
 		MessageBus.sendMessage('test_message', { name: 'value' });
 
-		let storedValue = storageProvider.getItem('test_message');
+		const storedValue = storageProvider.getItem('test_message');
 
 		expect(storedValue).toEqual(JSON.stringify({ name: 'value' }));
 	});
@@ -109,7 +109,7 @@ describe('MessageBus', () => {
 
 		MessageBus.initialize(storageProvider);
 
-		let value = MessageBus.getLastMessage('message');
+		const value = MessageBus.getLastMessage('message');
 
 		expect(value).toBeTypeOf('object');
 		expect(value.name).toEqual('value');
@@ -121,8 +121,8 @@ describe('MessageBus', () => {
 
 		MessageBus.clearAll();
 
-		let firstValue = MessageBus.getLastMessage('message_1');
-		let secondValue = MessageBus.getLastMessage('message_2');
+		const firstValue = MessageBus.getLastMessage('message_1');
+		const secondValue = MessageBus.getLastMessage('message_2');
 
 		expect(firstValue).toEqual(null);
 		expect(secondValue).toEqual(null);
@@ -133,7 +133,7 @@ describe('MessageBus', () => {
 
 		MessageBus.sendMessage('ignore_me', 'hello');
 
-		let storedValue = storageProvider.getItem('ignore_me');
+		const storedValue = storageProvider.getItem('ignore_me');
 
 		expect(storedValue).not.toEqual('hello');
 	});

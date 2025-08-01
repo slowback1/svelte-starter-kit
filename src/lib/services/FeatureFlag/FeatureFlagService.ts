@@ -13,7 +13,7 @@ export default class FeatureFlagService {
 	}
 
 	private static isFeatureEnabled(featureFlagName: string): boolean {
-		let featureFlag = this.featureFlags.find((flag) => flag.name === featureFlagName);
+		const featureFlag = this.featureFlags.find((flag) => flag.name === featureFlagName);
 
 		return featureFlag?.isEnabled ?? false;
 	}
@@ -23,7 +23,7 @@ export default class FeatureFlagService {
 		callback: (isEnabled: boolean) => void
 	) {
 		return MessageBus.subscribe(Messages.FeatureFlagsChanged, () => {
-			let isEnabled = this.isFeatureEnabled(featureFlagName);
+			const isEnabled = this.isFeatureEnabled(featureFlagName);
 
 			callback(isEnabled);
 		});

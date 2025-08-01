@@ -8,7 +8,7 @@ export default class ConfigFeatureFlagProvider implements IFeatureFlagProvider {
 	}
 
 	private getFeatureFlagFromConfig(): FeatureFlag[] {
-		let configService = new ConfigService();
+		const configService = new ConfigService();
 
 		return this.normalizeFeatureFlagData(configService.getConfig<FeatureFlag[]>('featureFlags'));
 	}

@@ -15,7 +15,7 @@ export type ToastConfig = {
 
 export default class ToastService {
 	AddToast(config: ToastConfig) {
-		let toasts = this.getCurrentToasts();
+		const toasts = this.getCurrentToasts();
 
 		if (!config.variant) config.variant = ToastVariant.info;
 
@@ -23,7 +23,7 @@ export default class ToastService {
 	}
 
 	RemoveToast(index: number) {
-		let toasts = this.getCurrentToasts();
+		const toasts = this.getCurrentToasts();
 
 		toasts.splice(index, 1);
 
@@ -31,7 +31,7 @@ export default class ToastService {
 	}
 
 	private getCurrentToasts(): ToastConfig[] {
-		let toasts = MessageBus.getLastMessage<ToastConfig[]>(Messages.Toasts);
+		const toasts = MessageBus.getLastMessage<ToastConfig[]>(Messages.Toasts);
 
 		return toasts ?? [];
 	}

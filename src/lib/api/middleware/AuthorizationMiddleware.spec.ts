@@ -3,7 +3,7 @@ import { getTestAPIRequest } from '$lib/testHelpers/testData/testAPIRequest';
 
 describe('AuthenticationMiddleware', () => {
 	it("appends a bearer token to the request's headers", async () => {
-		let middleware = new AuthorizationMiddleware();
+		const middleware = new AuthorizationMiddleware();
 
 		let request = getTestAPIRequest();
 

@@ -2,7 +2,7 @@ import { Messages } from '$lib/bus/Messages';
 
 describe('Message List', () => {
 	it('every message is unique', () => {
-		let values = Object.values(Messages);
+		const values = Object.values(Messages);
 
 		values.forEach((value, index, array) => {
 			if (array.indexOf(value) !== index)

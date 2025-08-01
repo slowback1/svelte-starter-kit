@@ -3,7 +3,7 @@ import { getTestAPIRequest } from '$lib/testHelpers/testData/testAPIRequest';
 
 describe('HeaderMiddleware', () => {
 	it("should inject a 'Content-Type' header", async () => {
-		let middleware = new HeaderMiddleware();
+		const middleware = new HeaderMiddleware();
 
 		let request = getTestAPIRequest();
 

@@ -39,7 +39,7 @@ describe('ComboBox', () => {
 		}
 	];
 	function renderComponent(overrides: Partial<ComponentProps<ComboBox>> = {}) {
-		let props = {
+		const props = {
 			onSelect: vi.fn(),
 			label: 'label',
 			options: testOptionInput,
@@ -59,7 +59,7 @@ describe('ComboBox', () => {
 	it('renders an element that is accessible via a test id', () => {
 		renderComponent({ testId: 'my-custom-test-id' });
 
-		let comboBox = result.getByTestId('my-custom-test-id');
+		const comboBox = result.getByTestId('my-custom-test-id');
 
 		expect(comboBox).toBeInTheDocument();
 	});
@@ -75,37 +75,37 @@ describe('ComboBox', () => {
 	});
 
 	it("the input's id and label are correctly hooked up", () => {
-		let label = result.getByTestId(`${testId}__label`);
-		let input = result.getByTestId(`${testId}__input`);
+		const label = result.getByTestId(`${testId}__label`);
+		const input = result.getByTestId(`${testId}__input`);
 
-		let expectedIdForPair = `${testId}__input`;
+		const expectedIdForPair = `${testId}__input`;
 
 		expect(input.id).toEqual(expectedIdForPair);
 		expect(label).toHaveAttribute('for', expectedIdForPair);
 	});
 
 	it('contains a button to toggle the combobox', () => {
-		let button = result.getByTestId(`${testId}__toggle`);
+		const button = result.getByTestId(`${testId}__toggle`);
 
 		expect(button).toBeInTheDocument();
 	});
 
 	it('initially does not have a list for options', () => {
-		let options = result.queryByTestId(`${testId}__options`);
+		const options = result.queryByTestId(`${testId}__options`);
 
 		expect(options).not.toBeInTheDocument();
 	});
 
 	async function waitForOptionsToLoad() {
 		await waitFor(() => {
-			let options = result.queryByTestId(`${testId}__options`);
+			const options = result.queryByTestId(`${testId}__options`);
 
 			expect(options).toBeInTheDocument();
 		});
 	}
 
 	async function clickTheToggleButtonAndWaitForOptionsToLoad() {
-		let button = result.getByTestId(`${testId}__toggle`);
+		const button = result.getByTestId(`${testId}__toggle`);
 
 		act(() => {
 			fireEvent.click(button);
@@ -121,14 +121,14 @@ describe('ComboBox', () => {
 	it('the options list has all of the options', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let options = result
+		const options = result
 			.getByTestId(`${testId}__options`)
 			.querySelectorAll(`[data-testid="${testId}__option"]`);
 
 		expect(options.length).toEqual(testOptionInput.length);
 
 		options.forEach((option) => {
-			let labelIsInOptionList = testOptionInput.some((opt) =>
+			const labelIsInOptionList = testOptionInput.some((opt) =>
 				option.textContent.includes(opt.label)
 			);
 
@@ -137,13 +137,13 @@ describe('ComboBox', () => {
 	});
 
 	it('typing into the input opens up the options list with a filtered list of the options', async () => {
-		let input = result.getByTestId(`${testId}__input`);
+		const input = result.getByTestId(`${testId}__input`);
 
 		fireEvent.input(input, { target: { value: 'aard' } });
 
 		await waitForOptionsToLoad();
 
-		let options = result.getAllByTestId(`${testId}__option`);
+		const options = result.getAllByTestId(`${testId}__option`);
 
 		expect(options.length).toEqual(1);
 
@@ -153,13 +153,13 @@ describe('ComboBox', () => {
 	it('the options list has the correct roles and aria-labeling on each of the elements', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let list = result.getByTestId(`${testId}__options`);
+		const list = result.getByTestId(`${testId}__options`);
 
 		expect(list).toHaveAttribute('role', 'listbox');
 		expect(list).toHaveAttribute('aria-label', 'label');
 		expect(list).toHaveAttribute('id', `${testId}__listbox`);
 
-		let items = result.getAllByTestId(`${testId}__option`);
+		const items = result.getAllByTestId(`${testId}__option`);
 
 		items.forEach((item, index) => {
 			expect(item).toHaveAttribute('role', 'option');
@@ -168,7 +168,7 @@ describe('ComboBox', () => {
 	});
 
 	it('the toggle button has the correct aria attributes on it', () => {
-		let toggle = result.getByTestId(`${testId}__toggle`);
+		const toggle = result.getByTestId(`${testId}__toggle`);
 
 		expect(toggle).toHaveAttribute('aria-label', 'label');
 		expect(toggle).toHaveAttribute('aria-controls', `${testId}__listbox`);
@@ -179,7 +179,7 @@ describe('ComboBox', () => {
 	it("the button's aria-expanded is true when the listbox is open", async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let toggle = result.getByTestId(`${testId}__toggle`);
+		const toggle = result.getByTestId(`${testId}__toggle`);
 
 		expect(toggle).toHaveAttribute('aria-expanded', 'true');
 	});
@@ -187,7 +187,7 @@ describe('ComboBox', () => {
 	it('the first option is the one  that  has focus by default when the option list is opened', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let [focused, ...rest] = result.getAllByTestId(`${testId}__option`);
+		const [focused, ...rest] = result.getAllByTestId(`${testId}__option`);
 
 		expect(focused).toHaveClass('combo-box__option-focused');
 
@@ -210,7 +210,7 @@ describe('ComboBox', () => {
 			fireEvent.keyUp(result.getByTestId(elementToFocus), { key: KeyboardKeys.ArrowDown });
 
 			await waitFor(() => {
-				let [notFocused, focused, ...rest] = result.getAllByTestId(`${testId}__option`);
+				const [notFocused, focused, ...rest] = result.getAllByTestId(`${testId}__option`);
 
 				expect(focused).toHaveClass('combo-box__option-focused');
 			});
@@ -220,7 +220,7 @@ describe('ComboBox', () => {
 	it('the input indicates the aria-activedescendent value when the options are visible', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let input = result.getByTestId(`${testId}__input`);
+		const input = result.getByTestId(`${testId}__input`);
 
 		expect(input).toHaveAttribute(
 			'aria-activedescendant',
@@ -234,7 +234,7 @@ describe('ComboBox', () => {
 		fireEvent.keyUp(result.getByTestId(testId), { key: KeyboardKeys.Enter });
 
 		await waitFor(() => {
-			let input = result.getByTestId(`${testId}__input`);
+			const input = result.getByTestId(`${testId}__input`);
 
 			expect(input).toHaveValue(testOptionInput[0].label);
 		});
@@ -243,19 +243,19 @@ describe('ComboBox', () => {
 	it('clicking an option value selects that value', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let option = result.getAllByTestId(`${testId}__option`)[1];
+		const option = result.getAllByTestId(`${testId}__option`)[1];
 
 		fireEvent.click(option);
 
 		await waitFor(() => {
-			let input = result.getByTestId(`${testId}__input`);
+			const input = result.getByTestId(`${testId}__input`);
 
 			expect(input).toHaveValue(testOptionInput[1].label);
 		});
 	});
 
 	it("can conmbine typing and clicking to select an option", async () =>{
-		let label = testOptionInput[2].label;
+		const label = testOptionInput[2].label;
 		await ComboBoxTestHelpers.selectComboBoxOption(testId, label);
 
 		ComboBoxTestHelpers.assertThatComboBoxHasValue(testId, label)
@@ -264,12 +264,12 @@ describe('ComboBox', () => {
 	it('hovering over an option value switches focus to that option', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();
 
-		let option = result.getAllByTestId(`${testId}__option`)[1];
+		const option = result.getAllByTestId(`${testId}__option`)[1];
 
 		fireEvent.mouseEnter(option);
 
 		await waitFor(() => {
-			let option = result.getAllByTestId(`${testId}__option`)[1];
+			const option = result.getAllByTestId(`${testId}__option`)[1];
 
 			expect(option).toHaveClass('combo-box__option-focused');
 		});

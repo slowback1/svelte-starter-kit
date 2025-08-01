@@ -17,15 +17,15 @@ describe('Button', () => {
 	});
 
 	it('renders a button', () => {
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toBeInTheDocument();
 	});
 
 	it('clicking the button fires a click event', () => {
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
-		let eventListener = vi.fn();
+		const eventListener = vi.fn();
 
 		button.addEventListener('click', eventListener);
 
@@ -35,14 +35,14 @@ describe('Button', () => {
 	});
 
 	it("by default has a 'button-primary' class", () => {
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 		expect(button).toHaveClass('button-primary');
 	});
 
 	it("can pass in a 'secondary' variant to get a 'button-secondary' class", () => {
 		renderComponent({ variant: 'secondary' });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toHaveClass('button-secondary');
 	});
@@ -50,7 +50,7 @@ describe('Button', () => {
 	it("can pass in a 'text' variant to get a 'button-text' class", () => {
 		renderComponent({ variant: 'text' });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toHaveClass('button-text');
 	});
@@ -58,22 +58,22 @@ describe('Button', () => {
 	it("does not have a 'button-primary' class when the variant is 'secondary'", () => {
 		renderComponent({ variant: 'secondary' });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).not.toHaveClass('button-primary');
 	});
 
 	it("does not have a 'button-secondary' class when the variant is 'primary'", () => {
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).not.toHaveClass('button-secondary');
 	});
 
 	it('passes through the test-id attribute', () => {
-		let testId = 'test-button';
+		const testId = 'test-button';
 
 		renderComponent({ testId: testId });
-		let buttonWithTestId = result.getByTestId(testId);
+		const buttonWithTestId = result.getByTestId(testId);
 
 		expect(buttonWithTestId).toBeInTheDocument();
 	});
@@ -81,17 +81,17 @@ describe('Button', () => {
 	it('passes through the href attribute to make the button a link', () => {
 		renderComponent({ href: '/test' });
 
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).toBeInTheDocument();
 	});
 
 	it('calls the onClick handler when the button is clicked', () => {
-		let onClick = vi.fn();
+		const onClick = vi.fn();
 
 		renderComponent({ onClick });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		fireEvent.click(button);
 
@@ -101,7 +101,7 @@ describe('Button', () => {
 	it("has a 'small' size class when passed the small size prop", () => {
 		renderComponent({ size: 'small' });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toHaveClass('button-small');
 	});
@@ -109,7 +109,7 @@ describe('Button', () => {
 	it("has a 'large' size clas when passed the large size prop", () => {
 		renderComponent({ size: 'large' });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toHaveClass('button-large');
 	});
@@ -117,7 +117,7 @@ describe('Button', () => {
 	it('can disable the button', () => {
 		renderComponent({ disabled: true });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).toBeDisabled();
 	});
@@ -125,7 +125,7 @@ describe('Button', () => {
 	it('setting disabled to false means the button is enabled', () => {
 		renderComponent({ disabled: false });
 
-		let button = result.getByRole('button');
+		const button = result.getByRole('button');
 
 		expect(button).not.toBeDisabled();
 	});
@@ -133,7 +133,7 @@ describe('Button', () => {
 	it("has a tabindex of 0 by default", () => {
 		renderComponent();
 
-		let button = result.getByRole("button");
+		const button = result.getByRole("button");
 
 		expect(button.tabIndex).toEqual(0);
 	})
@@ -141,7 +141,7 @@ describe('Button', () => {
 	it("can update the tab index", () => {
 		renderComponent({tabIndex: 1});
 
-		let button = result.getByRole("button");
+		const button = result.getByRole("button");
 
 		expect(button.tabIndex).toEqual(1);
 	})

@@ -8,7 +8,7 @@ import { Messages } from '$lib/bus/Messages';
 describe('FeatureFlagService', () => {
 	describe('initializing', () => {
 		it('calls the provider to get the feature flags', async () => {
-			let provider = new TestFeatureFlagProvider([]);
+			const provider = new TestFeatureFlagProvider([]);
 
 			await FeatureFlagService.initialize(provider);
 
@@ -16,8 +16,8 @@ describe('FeatureFlagService', () => {
 		});
 
 		it('saves the feature flags from the provider', async () => {
-			let featureFlags = [createTestFeatureFlag('test1'), createTestFeatureFlag('test2', false)];
-			let provider = new TestFeatureFlagProvider(featureFlags);
+			const featureFlags = [createTestFeatureFlag('test1'), createTestFeatureFlag('test2', false)];
+			const provider = new TestFeatureFlagProvider(featureFlags);
 
 			await FeatureFlagService.initialize(provider);
 
@@ -25,7 +25,7 @@ describe('FeatureFlagService', () => {
 		});
 
 		it("doesn't error out if the provider returns an error", async () => {
-			let provider = new TestFeatureFlagProvider([]);
+			const provider = new TestFeatureFlagProvider([]);
 			provider.getFeatureFlagsMock = vi.fn(() => {
 				return Promise.reject('error');
 			});
@@ -36,7 +36,7 @@ describe('FeatureFlagService', () => {
 		});
 
 		it('sets the feature flags to an empty array if the provider returns an error', async () => {
-			let provider = new TestFeatureFlagProvider([]);
+			const provider = new TestFeatureFlagProvider([]);
 			provider.getFeatureFlagsMock = vi.fn(() => {
 				return Promise.reject('error');
 			});
@@ -47,11 +47,11 @@ describe('FeatureFlagService', () => {
 		});
 
 		it('sends a message to the message bus when the feature flags change', async () => {
-			let provider = new TestFeatureFlagProvider([]);
+			const provider = new TestFeatureFlagProvider([]);
 
 			await FeatureFlagService.initialize(provider);
 
-			let lastMessage = MessageBus.getLastMessage<boolean>(Messages.FeatureFlagsChanged);
+			const lastMessage = MessageBus.getLastMessage<boolean>(Messages.FeatureFlagsChanged);
 
 			expect(lastMessage).toEqual(true);
 		});
@@ -59,7 +59,7 @@ describe('FeatureFlagService', () => {
 
 	describe('checking if a feature is enabled', () => {
 		beforeEach(async () => {
-			let provider = new TestFeatureFlagProvider([
+			const provider = new TestFeatureFlagProvider([
 				createTestFeatureFlag('test1'),
 				createTestFeatureFlag('test2', false)
 			]);

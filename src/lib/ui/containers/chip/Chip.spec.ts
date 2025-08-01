@@ -9,7 +9,7 @@ describe('Chip', () => {
 	function renderComponent(overrides: Partial<ChipProps> = {}) {
 		if (result) result.unmount();
 
-		let props: ChipProps = { text: 'chip text', ...overrides };
+		const props: ChipProps = { text: 'chip text', ...overrides };
 
 		result = render(Chip, { props: props as any });
 	}
@@ -31,7 +31,7 @@ describe('Chip', () => {
 	it('renders the text', () => {
 		renderComponent({ text: 'custom text' });
 
-		let chip = result.getByTestId('chip');
+		const chip = result.getByTestId('chip');
 
 		expect(chip).toHaveTextContent('custom text');
 	});

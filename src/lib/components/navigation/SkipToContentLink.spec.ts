@@ -17,13 +17,13 @@ describe('SkipToContentLink', () => {
 	});
 
 	it("renders a link with an href of '#content'", () => {
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).toHaveAttribute('href', '#content');
 	});
 
 	it("the link text is 'Skip to Content'", () => {
-		let link = result.getByRole('link');
+		const link = result.getByRole('link');
 
 		expect(link).toHaveTextContent('Skip to Content');
 	});

@@ -17,9 +17,9 @@ export default class AccordionService {
 	}
 
 	registerConfigItem(name: string) {
-		let config = this.getCurrentConfig();
+		const config = this.getCurrentConfig();
 
-		let itemAlreadyExists = config.items.find((i) => i.name === name);
+		const itemAlreadyExists = config.items.find((i) => i.name === name);
 		if (itemAlreadyExists) return;
 
 		config.items.push({
@@ -31,7 +31,7 @@ export default class AccordionService {
 	}
 
 	toggleItem(itemName: string) {
-		let config = this.getCurrentConfig();
+		const config = this.getCurrentConfig();
 
 		if (!config.items.find((i) => i.name === itemName))
 			throw new Error(
@@ -39,7 +39,7 @@ export default class AccordionService {
 			);
 
 		config.items.forEach((item) => {
-			let isTheItemToToggle = item.name === itemName;
+			const isTheItemToToggle = item.name === itemName;
 
 			item.isOpen = isTheItemToToggle ? !item.isOpen : false;
 		});

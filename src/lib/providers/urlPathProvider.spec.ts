@@ -14,7 +14,7 @@ describe('UrlPathProvider', () => {
 			['/test/1', true],
 			['/', false]
 		])('correctly matches the url (%s, %s)', (path, expected) => {
-			let result = UrlPathProvider.matchesPath(path);
+			const result = UrlPathProvider.matchesPath(path);
 
 			expect(result).toEqual(expected);
 		});
@@ -33,7 +33,7 @@ describe('UrlPathProvider', () => {
 			['/test/1', false],
 			['/', true]
 		])('correctly matches the url (%s, %s)', (path, expected) => {
-			let result = UrlPathProvider.matchesPath(path);
+			const result = UrlPathProvider.matchesPath(path);
 
 			expect(result).toEqual(expected);
 		});

@@ -12,9 +12,9 @@ export default class UrlPathProvider {
 	static matchesPath(path: string): boolean {
 		if (!this.urlProvider) return false;
 
-		let trimmedPath = path.substring(1);
+		const trimmedPath = path.substring(1);
 
-		let providerPath = this.urlProvider.path.substring(1);
+		const providerPath = this.urlProvider.path.substring(1);
 
 		if (providerPath === '') return trimmedPath === '';
 

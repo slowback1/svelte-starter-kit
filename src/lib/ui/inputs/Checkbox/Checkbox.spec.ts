@@ -10,7 +10,7 @@ describe('Checkbox', () => {
 	function renderComponent(overrides: Partial<ComponentProps<Checkbox>> = {}) {
 		if (result) result.unmount();
 
-		let props = {
+		const props = {
 			id: 'test',
 			label: 'test',
 			...overrides
@@ -24,7 +24,7 @@ describe('Checkbox', () => {
 	});
 
 	it('renders a checkbox', () => {
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
+		const checkbox = result.container.querySelector('input[type="checkbox"]');
 
 		expect(checkbox).toBeInTheDocument();
 	});
@@ -36,8 +36,8 @@ describe('Checkbox', () => {
 
 	it('ties the input and id together with the given id', () => {
 		renderComponent({ id: 'test' });
-		let label = result.container.querySelector('label');
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
+		const label = result.container.querySelector('label');
+		const checkbox = result.container.querySelector('input[type="checkbox"]');
 
 		expect(checkbox).toHaveAttribute('id', 'test');
 		expect(label).toHaveAttribute('for', 'test');
@@ -45,8 +45,8 @@ describe('Checkbox', () => {
 
 	it('will set the data-testid attribute to the id if given no override', () => {
 		renderComponent({ id: 'test' });
-		let label = result.container.querySelector('label');
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
+		const label = result.container.querySelector('label');
+		const checkbox = result.container.querySelector('input[type="checkbox"]');
 
 		expect(checkbox).toHaveAttribute('data-testid', 'test');
 		expect(label).toHaveAttribute('data-testid', 'test-label');
@@ -55,8 +55,8 @@ describe('Checkbox', () => {
 	it('can overwrite the testid attribute', () => {
 		renderComponent({ testId: 'something-different' });
 
-		let label = result.container.querySelector('label');
-		let checkbox = result.container.querySelector('input[type="checkbox"]');
+		const label = result.container.querySelector('label');
+		const checkbox = result.container.querySelector('input[type="checkbox"]');
 
 		expect(checkbox).toHaveAttribute('data-testid', 'something-different');
 		expect(label).toHaveAttribute('data-testid', 'something-different-label');

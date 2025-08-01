@@ -1,5 +1,5 @@
 export function getFetchMock(response: any, status: number = 200) {
-	let mock = vi.fn(() => {
+	const mock = vi.fn(() => {
 		return Promise.resolve({
 			json(): Promise<any> {
 				return Promise.resolve(response);
@@ -26,8 +26,8 @@ function normalizeRoute(route: string) {
 }
 
 function compareRoutes(sourceRoute: string, searchUrl: string) {
-	let normalizedFirst = normalizeRoute(sourceRoute);
-	let normalizedSecond = normalizeRoute(searchUrl);
+	const normalizedFirst = normalizeRoute(sourceRoute);
+	const normalizedSecond = normalizeRoute(searchUrl);
 
 	if (sourceRoute.includes('*')) return compareWildcards(sourceRoute, searchUrl);
 
@@ -35,25 +35,25 @@ function compareRoutes(sourceRoute: string, searchUrl: string) {
 }
 
 function compareWildcards(wildcard: string, search: string) {
-	let beforeWildcard = wildcard.substring(0, wildcard.indexOf('*'));
-	let equivalentSearchString = search.substring(0, wildcard.indexOf('*'));
+	const beforeWildcard = wildcard.substring(0, wildcard.indexOf('*'));
+	const equivalentSearchString = search.substring(0, wildcard.indexOf('*'));
 
 	return compareRoutes(beforeWildcard, equivalentSearchString);
 }
 type MockApiMap = { [route: string]: any | { response: any; status: number } };
 
 function getMatchedResponse(url: string, map: MockApiMap) {
-	let lowerUrl = url.toLowerCase();
+	const lowerUrl = url.toLowerCase();
 
-	let routes = Object.keys(map);
+	const routes = Object.keys(map);
 
-	let matchedRoute = routes.find((route) => compareRoutes(route, lowerUrl));
+	const matchedRoute = routes.find((route) => compareRoutes(route, lowerUrl));
 	return map[matchedRoute];
 }
 
 export function mockApi(map: MockApiMap) {
-	let mock = vi.fn((url: string, options: RequestInit) => {
-		let matchedResponse = getMatchedResponse(url, map);
+	const mock = vi.fn((url: string, options: RequestInit) => {
+		const matchedResponse = getMatchedResponse(url, map);
 
 		if (!matchedResponse) throw new Error(`Invalid URL: '${url}'`);
 

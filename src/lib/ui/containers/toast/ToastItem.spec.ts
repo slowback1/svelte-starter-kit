@@ -12,7 +12,7 @@ describe('ToastItem', () => {
 		if (result) result.unmount();
 
 		onCloseMock = vi.fn();
-		let props = { config, onClose: onCloseMock };
+		const props = { config, onClose: onCloseMock };
 
 		result = render(ToastItem, { props });
 	}
@@ -22,7 +22,7 @@ describe('ToastItem', () => {
 	});
 
 	it('renders a wrapper for the toast item', () => {
-		let wrapper = result.getByTestId('toast-item');
+		const wrapper = result.getByTestId('toast-item');
 
 		expect(wrapper).toBeInTheDocument();
 	});
@@ -35,13 +35,13 @@ describe('ToastItem', () => {
 	])('when given a variant %s, has a class named %s', (variant, expectedClass) => {
 		renderComponent({ message: 'hello world', variant });
 
-		let wrapper = result.getByTestId('toast-item');
+		const wrapper = result.getByTestId('toast-item');
 
 		expect(wrapper).toHaveClass(expectedClass);
 	});
 
 	it('contains the text content of the message', () => {
-		let wrapper = result.getByTestId('toast-item');
+		const wrapper = result.getByTestId('toast-item');
 
 		expect(wrapper).toHaveTextContent('hello world');
 	});
@@ -49,19 +49,19 @@ describe('ToastItem', () => {
 	it("coerces the variant to 'info' if none is given", () => {
 		renderComponent({ message: 'hi' });
 
-		let wrapper = result.getByTestId('toast-item');
+		const wrapper = result.getByTestId('toast-item');
 
 		expect(wrapper).toHaveClass('toast-item__info');
 	});
 
 	it('has a close button', () => {
-		let closeButton = result.getByTestId('toast-item__close');
+		const closeButton = result.getByTestId('toast-item__close');
 
 		expect(closeButton).toBeInTheDocument();
 	});
 
 	it('clicking the close button calls the onClose mock', () => {
-		let closeButton = result.getByTestId('toast-item__close');
+		const closeButton = result.getByTestId('toast-item__close');
 
 		fireEvent.click(closeButton);
 

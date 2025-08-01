@@ -17,7 +17,7 @@ describe('ToastWrapper', () => {
 
 	function addTestToast(message: string, variant: ToastVariant = ToastVariant.info) {
 		act(() => {
-			let service = new ToastService();
+			const service = new ToastService();
 
 			service.AddToast({ message, variant });
 		});
@@ -33,7 +33,7 @@ describe('ToastWrapper', () => {
 		addTestToast('hi 3');
 
 		await waitFor(() => {
-			let items = result.getAllByTestId('toast-item');
+			const items = result.getAllByTestId('toast-item');
 
 			expect(items.length).toEqual(3);
 			expect(items[0]).toHaveTextContent('hi');
@@ -46,25 +46,25 @@ describe('ToastWrapper', () => {
 		addTestToast('hi 1');
 
 		await waitFor(() => {
-			let items = result.getAllByTestId('toast-item');
+			const items = result.getAllByTestId('toast-item');
 
 			expect(items.length).toEqual(1);
 			expect(items[0]).toHaveTextContent('hi 1');
 		});
 
-		let closeButton = result.getByTestId('toast-item__close');
+		const closeButton = result.getByTestId('toast-item__close');
 
 		await fireEvent.click(closeButton);
 
 		await waitFor(() => {
-			let items = result.queryAllByTestId('toast-item');
+			const items = result.queryAllByTestId('toast-item');
 
 			expect(items.length).toEqual(0);
 		});
 	});
 
 	it('has an invisible aria-live region for announcing the most recent toast', () => {
-		let live = result.getByTestId('toast-wrapper__live');
+		const live = result.getByTestId('toast-wrapper__live');
 
 		expect(live).toHaveAttribute('aria-live', 'polite');
 		expect(live).toHaveClass('screen-reader-only');
@@ -74,7 +74,7 @@ describe('ToastWrapper', () => {
 		addTestToast('hello world');
 
 		await waitFor(() => {
-			let live = result.getByTestId('toast-wrapper__live');
+			const live = result.getByTestId('toast-wrapper__live');
 
 			expect(live).toHaveTextContent('hello world');
 		});
@@ -87,7 +87,7 @@ describe('ToastWrapper', () => {
 		addTestToast('hi 4');
 
 		await waitFor(() => {
-			let items = result.getAllByTestId('toast-item');
+			const items = result.getAllByTestId('toast-item');
 
 			expect(items.length).toEqual(3);
 			expect(items[0]).toHaveTextContent('hi');

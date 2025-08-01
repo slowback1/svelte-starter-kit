@@ -13,13 +13,13 @@ export default class ConfigService {
 	}
 
 	private static async getConfigFromFile() {
-		let config: ApplicationConfig = await fetch('/config/config.json').then((res) => res.json());
+		const config: ApplicationConfig = await fetch('/config/config.json').then((res) => res.json());
 
 		MessageBus.sendMessage(Messages.ApplicationConfig, config);
 	}
 
 	getConfig<T>(key: keyof ApplicationConfig): T {
-		let currentConfig = MessageBus.getLastMessage<ApplicationConfig>(Messages.ApplicationConfig);
+		const currentConfig = MessageBus.getLastMessage<ApplicationConfig>(Messages.ApplicationConfig);
 
 		if (!currentConfig) return undefined;
 

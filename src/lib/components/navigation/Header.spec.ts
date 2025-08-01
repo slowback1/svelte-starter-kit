@@ -17,7 +17,7 @@ describe('Header', () => {
 	});
 
 	it('renders the nav', () => {
-		let nav = result.getByTestId('header');
+		const nav = result.getByTestId('header');
 
 		expect(nav).toBeInTheDocument();
 	});

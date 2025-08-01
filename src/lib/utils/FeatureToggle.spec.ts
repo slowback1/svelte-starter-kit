@@ -12,10 +12,10 @@ describe('FeatureToggle', () => {
 	])(
 		'when the feature is %isEnabled% then it should render the %idToFind% element',
 		async ({ isEnabled, idToFind }) => {
-			let provider = new TestFeatureFlagProvider([createTestFeatureFlag('test', isEnabled)]);
+			const provider = new TestFeatureFlagProvider([createTestFeatureFlag('test', isEnabled)]);
 			await FeatureFlagService.initialize(provider);
 
-			let featureToggle = render(FeatureToggle);
+			const featureToggle = render(FeatureToggle);
 
 			expect(featureToggle.getByTestId(idToFind)).toBeInTheDocument();
 		}

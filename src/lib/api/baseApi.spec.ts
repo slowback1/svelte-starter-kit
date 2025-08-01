@@ -56,48 +56,48 @@ class TestApi extends BaseApi {
 }
 
 describe('BaseApi', () => {
-	let api = new TestApi();
+	const api = new TestApi();
 
 	it('calls the correct URL when getting from the API', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestGet();
+		const result = await api.TestGet();
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		let [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0];
 
 		expect(url).toContain('test');
 		expect(options.method).toEqual('GET');
 	});
 
 	it('calls the correct URL when deleting from the API', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestDelete();
+		const result = await api.TestDelete();
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		let [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0];
 
 		expect(url).toContain('test');
 		expect(options.method).toEqual('DELETE');
 	});
 
 	it('appends the token as an authorization header when getting from the API', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestGet();
+		const result = await api.TestGet();
 
-		let options = mockFetch.mock.calls[0][1];
+		const options = mockFetch.mock.calls[0][1];
 
-		let authHeader = options.headers['Authorization'];
+		const authHeader = options.headers['Authorization'];
 
 		expect(authHeader).toBeDefined();
 		//TO-DO: update this test with the implementation of  the bearer token
@@ -105,15 +105,15 @@ describe('BaseApi', () => {
 	});
 
 	it('can post with a post body', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestPost({ msg: 'hi' });
+		const result = await api.TestPost({ msg: 'hi' });
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		let [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0];
 
 		expect(url).toContain('test');
 		expect(JSON.parse(options.body as string).msg).toEqual('hi');
@@ -121,14 +121,14 @@ describe('BaseApi', () => {
 	});
 
 	it('posting with a post body has the bearer token', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestPost({ msg: 'hi' });
-		let options = mockFetch.mock.calls[0][1];
+		const result = await api.TestPost({ msg: 'hi' });
+		const options = mockFetch.mock.calls[0][1];
 
-		let authHeader = options.headers['Authorization'];
+		const authHeader = options.headers['Authorization'];
 
 		expect(authHeader).toBeDefined();
 		//TO-DO: update this test with the implementation of  the bearer token
@@ -136,15 +136,15 @@ describe('BaseApi', () => {
 	});
 
 	it('can put with a put body', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestPut({ msg: 'hi' });
+		const result = await api.TestPut({ msg: 'hi' });
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		let [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0];
 
 		expect(url).toContain('test');
 		expect(JSON.parse(options.body as string).msg).toEqual('hi');
@@ -152,14 +152,14 @@ describe('BaseApi', () => {
 	});
 
 	it('puting with a put body has the bearer token', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test': 'hello world'
 		});
 
-		let result = await api.TestPut({ msg: 'hi' });
-		let options = mockFetch.mock.calls[0][1];
+		const result = await api.TestPut({ msg: 'hi' });
+		const options = mockFetch.mock.calls[0][1];
 
-		let authHeader = options.headers['Authorization'];
+		const authHeader = options.headers['Authorization'];
 
 		expect(authHeader).toBeDefined();
 		//TO-DO: update this test with the implementation of  the bearer token
@@ -167,7 +167,7 @@ describe('BaseApi', () => {
 	});
 
 	it('runs the middleware added to the child class', async () => {
-		let api = new TestApi();
+		const api = new TestApi();
 
 		await api.TestGet();
 
@@ -175,7 +175,7 @@ describe('BaseApi', () => {
 	});
 
 	it('appends query parameters to the url', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test?key=value': 'hello world'
 		});
 
@@ -185,7 +185,7 @@ describe('BaseApi', () => {
 	});
 
 	it('appends query parameters to the url when posting', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test?key=value': 'hello world'
 		});
 
@@ -195,7 +195,7 @@ describe('BaseApi', () => {
 	});
 
 	it('appends query parameters to the url when putting', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test?key=value': 'hello world'
 		});
 
@@ -205,7 +205,7 @@ describe('BaseApi', () => {
 	});
 
 	it('appends query parameters to the url when deleting', async () => {
-		let mockFetch = mockApi({
+		const mockFetch = mockApi({
 			'/test?key=value': 'hello world'
 		});
 

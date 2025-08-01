@@ -19,13 +19,13 @@ describe('ThemeToggle', () => {
 	});
 
 	it('renders a toggle', () => {
-		let toggle = result.getByRole('switch');
+		const toggle = result.getByRole('switch');
 
 		expect(toggle).toBeInTheDocument();
 	});
 
 	it('The toggle is unchecked by default when the message bus is null', () => {
-		let toggle = result.getByRole('switch');
+		const toggle = result.getByRole('switch');
 
 		expect(toggle).toHaveAttribute('aria-checked', 'false');
 	});
@@ -35,7 +35,7 @@ describe('ThemeToggle', () => {
 
 		renderComponent();
 
-		let toggle = result.getByRole('switch');
+		const toggle = result.getByRole('switch');
 
 		expect(toggle).toHaveAttribute('aria-checked', 'true');
 	});
@@ -47,13 +47,13 @@ describe('ThemeToggle', () => {
 		MessageBus.sendMessage(Messages.CurrentTheme, theme);
 		renderComponent();
 
-		let label = result.container.querySelector('#theme-toggle');
+		const label = result.container.querySelector('#theme-toggle');
 
 		expect(label).toHaveTextContent(expectedLabel);
 	});
 
 	function toggleSwitch() {
-		let toggle = result.getByRole('switch');
+		const toggle = result.getByRole('switch');
 
 		act(() => {
 			fireEvent.click(toggle);
@@ -64,7 +64,7 @@ describe('ThemeToggle', () => {
 		toggleSwitch();
 
 		await waitFor(() => {
-			let currentTheme = MessageBus.getLastMessage(Messages.CurrentTheme);
+			const currentTheme = MessageBus.getLastMessage(Messages.CurrentTheme);
 
 			expect(currentTheme).toEqual(ColorTheme.Dark);
 		});

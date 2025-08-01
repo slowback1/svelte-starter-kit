@@ -9,7 +9,7 @@ export default class AccessibilityDsl extends DSL {
 		cy.checkA11y();
 	}
 	public visitPage(pageName: string): void {
-		let url = this.getPageUrl(pageName);
+		const url = this.getPageUrl(pageName);
 		cy.visit(url);
 	}
 

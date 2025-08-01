@@ -9,7 +9,7 @@ export default class AuthorizationMiddleware implements IRequestMiddleware {
 
 	private getBearerToken() {
 		//TO-DO: get your token from wherever you get your token, probably the message bus
-		let token = '';
+		const token = '';
 
 		return `Bearer ${token}`;
 	}

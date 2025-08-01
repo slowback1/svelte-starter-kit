@@ -5,10 +5,10 @@ import { beforeEach } from 'vitest';
 describe('Heading', () => {
 	let result: RenderResult<Heading>;
 
-	function renderComponent(overrides: any = {}) {
+	function renderComponent(overrides: never = {}) {
 		if (result) result.unmount();
 
-		let props = { ...overrides };
+		const props = { ...overrides };
 
 		result = render(Heading, { props });
 	}
@@ -27,7 +27,7 @@ describe('Heading', () => {
 	])('the level %s renders a %s', (level, selector) => {
 		renderComponent({ level });
 
-		let heading = result.container.querySelector(selector);
+		const heading = result.container.querySelector(selector);
 
 		expect(heading).toBeInTheDocument();
 	});
@@ -35,7 +35,7 @@ describe('Heading', () => {
 	it("the heading has a 'heading__bold' class when passed a font weight prop of 'bold'", () => {
 		renderComponent({ fontWeight: 'bold' });
 
-		let heading = result.container.querySelector('h1');
+		const heading = result.container.querySelector('h1');
 
 		expect(heading).toHaveClass('heading__bold');
 	});
