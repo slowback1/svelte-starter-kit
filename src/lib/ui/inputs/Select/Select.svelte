@@ -29,7 +29,7 @@
 		bind:value
 		{...$$restProps}
 	>
-		{#each options as option}
+		{#each options as option (option.value)}
 			<option selected={value === option.value} value={option.value}>{option.label}</option>
 		{/each}
 	</select>

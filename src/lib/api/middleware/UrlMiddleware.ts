@@ -16,7 +16,7 @@ export default class UrlMiddleware implements IRequestMiddleware {
 
 	private stripTrailingSlash(url: string): string {
 		if (url.endsWith('/')) {
-			return url.slice(0, -1);
+			return url.slice(0, url.length - 1);
 		}
 
 		return url;

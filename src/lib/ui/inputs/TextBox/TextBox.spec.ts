@@ -1,6 +1,6 @@
 import type { RenderResult } from '@testing-library/svelte';
 import TextBox from './TextBox.svelte';
-import { afterEach, beforeEach } from 'vitest';
+import { beforeEach } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/svelte';
 import TextBoxTestHelpers from './TextBoxTestHelpers';
 

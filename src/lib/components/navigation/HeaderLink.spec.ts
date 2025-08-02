@@ -7,7 +7,7 @@ import UrlPathProvider, { TestUrlProvider } from '$lib/providers/urlPathProvider
 describe('HeaderLink', () => {
 	let result: RenderResult<HeaderLink>;
 
-	function renderComponent(overrides: any = {}) {
+	function renderComponent(overrides: object = {}) {
 		if (result) result.unmount();
 
 		const props = {

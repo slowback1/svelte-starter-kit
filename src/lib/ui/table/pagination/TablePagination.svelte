@@ -30,7 +30,7 @@
 		>
 			Previous
 		</button>
-		{#each pageNumbers as pageNumber}
+		{#each pageNumbers as pageNumber (pageNumber)}
 			<button
 				class="table-pagination__page-number"
 				class:table-pagination__page-number--active={pageNumber === currentPageRequest.page}

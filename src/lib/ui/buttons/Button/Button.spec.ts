@@ -6,7 +6,7 @@ import { fireEvent, render } from '@testing-library/svelte';
 describe('Button', () => {
 	let result: RenderResult<Button>;
 
-	function renderComponent(props: any = {}) {
+	function renderComponent(props: object = {}) {
 		if (result) result.unmount();
 
 		result = render(Button, { props });
@@ -130,19 +130,19 @@ describe('Button', () => {
 		expect(button).not.toBeDisabled();
 	});
 
-	it("has a tabindex of 0 by default", () => {
+	it('has a tabindex of 0 by default', () => {
 		renderComponent();
 
-		const button = result.getByRole("button");
+		const button = result.getByRole('button');
 
 		expect(button.tabIndex).toEqual(0);
-	})
+	});
 
-	it("can update the tab index", () => {
-		renderComponent({tabIndex: 1});
+	it('can update the tab index', () => {
+		renderComponent({ tabIndex: 1 });
 
-		const button = result.getByRole("button");
+		const button = result.getByRole('button');
 
 		expect(button.tabIndex).toEqual(1);
-	})
+	});
 });

@@ -56,7 +56,7 @@ describe('ConfigFeatureFlagProvider', () => {
 		[{ a: 1, b: 2 }],
 		[1, 2, 3, 4],
 		[{ name: 'string', isEnabled: false }, { a: 1 }]
-	])('when the config is not a feature flag array', (config: any) => {
+	])('when the config is not a feature flag array', (config: never) => {
 		beforeEach(() => {
 			MessageBus.sendMessage(
 				Messages.ApplicationConfig,

@@ -16,7 +16,7 @@
 
 <div class="table-filter">
 	<div class="table-filter__fields">
-		{#each fields as field}
+		{#each fields as field (field.field.id)}
 			<FilterField {...field} />
 		{/each}
 	</div>

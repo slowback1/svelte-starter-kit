@@ -45,7 +45,7 @@ describe('ComboBox', () => {
 			options: testOptionInput,
 			testId: 'test-id',
 			...overrides
-		};
+		} as never;
 
 		if (result) result.unmount();
 
@@ -210,7 +210,7 @@ describe('ComboBox', () => {
 			fireEvent.keyUp(result.getByTestId(elementToFocus), { key: KeyboardKeys.ArrowDown });
 
 			await waitFor(() => {
-				const [notFocused, focused, ...rest] = result.getAllByTestId(`${testId}__option`);
+				const focused = result.getAllByTestId(`${testId}__option`)[1];
 
 				expect(focused).toHaveClass('combo-box__option-focused');
 			});
@@ -254,12 +254,12 @@ describe('ComboBox', () => {
 		});
 	});
 
-	it("can conmbine typing and clicking to select an option", async () =>{
+	it('can conmbine typing and clicking to select an option', async () => {
 		const label = testOptionInput[2].label;
 		await ComboBoxTestHelpers.selectComboBoxOption(testId, label);
 
-		ComboBoxTestHelpers.assertThatComboBoxHasValue(testId, label)
-	})
+		ComboBoxTestHelpers.assertThatComboBoxHasValue(testId, label);
+	});
 
 	it('hovering over an option value switches focus to that option', async () => {
 		await clickTheToggleButtonAndWaitForOptionsToLoad();

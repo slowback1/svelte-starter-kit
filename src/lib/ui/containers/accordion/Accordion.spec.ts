@@ -7,7 +7,7 @@ import getLocalStorageMock from '$lib/testHelpers/localStorageMock';
 describe('Accordion', () => {
 	let result: RenderResult<Accordion>;
 
-	function renderComponent(overrides: any = {}) {
+	function renderComponent(overrides: object = {}) {
 		if (result) result.unmount();
 
 		const props = {

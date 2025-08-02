@@ -17,7 +17,7 @@ describe('ThemeService', () => {
 		window.matchMedia = (query) =>
 			({
 				matches: query.includes('dark')
-			}) as any;
+			}) as never;
 	}
 
 	beforeEach(() => {

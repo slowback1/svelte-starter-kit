@@ -13,6 +13,7 @@ export default defineConfig({
 			on(
 				'file:preprocessor',
 				createBundler({
+					/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 					plugins: [createEsbuildPlugin(config) as any]
 				})
 			);

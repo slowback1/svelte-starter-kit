@@ -1,4 +1,3 @@
-import type { IUrlPathProvider } from '$lib/providers/urlPathProvider';
 import { beforeEach } from 'vitest';
 import UrlPathProvider, { RealUrlProvider, TestUrlProvider } from '$lib/providers/urlPathProvider';
 

@@ -1,5 +1,5 @@
 import Button from './Button.svelte';
-import type { StoryObj, Meta } from '@storybook/svelte';
+import type { Meta } from '@storybook/svelte';
 
 const meta: Meta = {
 	title: 'UI/Button',

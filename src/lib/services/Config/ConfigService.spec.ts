@@ -33,7 +33,9 @@ describe('ConfigService', () => {
 
 		it('passes the config into the message bus', async () => {
 			await waitFor(() => {
-				const lastMessage = MessageBus.getLastMessage<ApplicationConfig>(Messages.ApplicationConfig);
+				const lastMessage = MessageBus.getLastMessage<ApplicationConfig>(
+					Messages.ApplicationConfig
+				);
 
 				expect(lastMessage.baseUrl).toEqual('value');
 			});
@@ -58,7 +60,7 @@ describe('ConfigService', () => {
 
 	describe.each([{}, '', null, undefined, true, 1234, [], NaN])(
 		'when given an invalid config',
-		(config: any) => {
+		(config: never) => {
 			beforeEach(() => {
 				MessageBus.sendMessage(Messages.ApplicationConfig, config);
 			});

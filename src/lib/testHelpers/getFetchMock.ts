@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getFetchMock(response: any, status: number = 200) {
 	const mock = vi.fn(() => {
 		return Promise.resolve({
-			json(): Promise<any> {
-				return Promise.resolve(response);
+			json(): Promise<never> {
+				return Promise.resolve(response) as any;
 			},
 			text(): Promise<string> {
 				return Promise.resolve(response);
 			},
 			status: status
-		} as any);
+		} as never);
 	});
 
 	global.fetch = mock;
@@ -20,7 +21,7 @@ function normalizeRoute(route: string) {
 	let normalized = route.toLowerCase();
 
 	if (normalized.startsWith('/')) normalized = normalized.slice(1);
-	if (normalized.endsWith('/')) normalized = normalized.slice(0, -1);
+	if (normalized.endsWith('/')) normalized = normalized.slice(0, normalized.length - 1);
 
 	return normalized;
 }
@@ -40,7 +41,9 @@ function compareWildcards(wildcard: string, search: string) {
 
 	return compareRoutes(beforeWildcard, equivalentSearchString);
 }
-type MockApiMap = { [route: string]: any | { response: any; status: number } };
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type MockApiMap = { [route: string]: any | { response: never; status: number } };
 
 function getMatchedResponse(url: string, map: MockApiMap) {
 	const lowerUrl = url.toLowerCase();
@@ -52,7 +55,7 @@ function getMatchedResponse(url: string, map: MockApiMap) {
 }
 
 export function mockApi(map: MockApiMap) {
-	const mock = vi.fn((url: string, options: RequestInit) => {
+	const mock = vi.fn((url: string) => {
 		const matchedResponse = getMatchedResponse(url, map);
 
 		if (!matchedResponse) throw new Error(`Invalid URL: '${url}'`);
@@ -75,10 +78,10 @@ export function mockApi(map: MockApiMap) {
 				return Promise.resolve(response);
 			},
 			status: status
-		} as any);
+		});
 	});
 
-	global.fetch = mock;
+	global.fetch = mock as any;
 
 	return mock;
 }

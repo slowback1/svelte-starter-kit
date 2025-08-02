@@ -1,13 +1,13 @@
 import type { RenderResult } from '@testing-library/svelte';
 import ToggleSwitch from '$lib/ui/inputs/ToggleSwitch/ToggleSwitch.svelte';
-import { act, fireEvent, render, waitFor } from '@testing-library/svelte';
+import { fireEvent, render, waitFor } from '@testing-library/svelte';
 import { beforeEach } from 'vitest';
 import ToggleSwitchTestHelpers from './ToggleSwitchTestHelpers';
 
 describe('ToggleSwitch', () => {
 	let result: RenderResult<ToggleSwitch>;
 
-	function renderComponent(overrides: any = {}) {
+	function renderComponent(overrides: object = {}) {
 		if (result) result.unmount();
 
 		const props = { id: 'id', ...overrides };

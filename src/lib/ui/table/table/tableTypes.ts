@@ -25,7 +25,7 @@ export type TableColumnDefinition<T> = {
 	 * }
 	 * ```
 	 */
-	renderTemplate?: Component | any;
+	renderTemplate?: Component | never;
 };
 
 export type TableRenderContext<T> = {

@@ -5,7 +5,7 @@ export default class LocalStorageProvider implements IStorageProvider {
 		return localStorage.getItem(key);
 	}
 
-	setItem(key: string, value: any) {
+	setItem(key: string, value: never) {
 		localStorage.setItem(key, value);
 	}
 

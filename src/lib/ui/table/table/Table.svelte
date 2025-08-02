@@ -1,13 +1,13 @@
 ﻿<script lang="ts">
 	import type { TableProps } from '$lib/ui/table/table/tableTypes';
 
-	const { columns, rows }: TableProps<any> = $props();
+	const { columns, rows }: TableProps<never> = $props();
 </script>
 
 <table class="table table-base">
 	<thead>
 		<tr class="table__header-row">
-			{#each columns as column}
+			{#each columns as column (column.key)}
 				<th class="table__header-cell" data-testid={`table__header-${column.key}`}
 					>{column.title}</th
 				>
@@ -15,9 +15,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each rows as row, rowIndex}
+		{#each rows as row, rowIndex (rowIndex)}
 			<tr class="table__body-row" data-testid="table__row">
-				{#each columns as column}
+				{#each columns as column (column.key + rowIndex)}
 					<td class="table__body-cell" data-testid={`table__cell-${column.key}-${rowIndex}`}>
 						{#if !!column.renderKey}
 							{row[column.renderKey]}

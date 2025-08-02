@@ -56,6 +56,7 @@ export default ts.config(
 					ignoreDefaultValues: true,
 					ignoreArrayIndexes: true,
 					ignoreClassFieldInitialValues: true,
+					ignoreEnums: true,
 					ignore: [0, 1]
 				}
 			],

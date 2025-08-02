@@ -28,6 +28,10 @@ export default class ComboBoxService<T> {
 	private getOptions(): ComboBoxOptionOutput<T>[] {
 		if (!this.options) return [];
 
+		const sortBThenA = -1;
+		const sortAThenB = 1;
+		const sortEvenly = 0;
+
 		return this.options
 			.map((opt, index) => ({ ...opt, id: index }))
 			.filter((opt) => opt.label.toLowerCase().includes(this.value.toLowerCase()))
@@ -38,11 +42,13 @@ export default class ComboBoxService<T> {
 				const valueStartsWithA = labelA.startsWith(this.value);
 				const valueStartsWithB = labelB.startsWith(this.value);
 
-				return valueStartsWithA && !valueStartsWithB
-					? -1
-					: valueStartsWithB && !valueStartsWithA
-						? 1
-						: 0;
+				if (valueStartsWithA && !valueStartsWithB) {
+					return sortBThenA;
+				}
+				if (valueStartsWithB && !valueStartsWithA) {
+					return sortAThenB;
+				}
+				return sortEvenly;
 			});
 	}
 
@@ -92,6 +98,8 @@ export default class ComboBoxService<T> {
 				break;
 			case KeyboardKeys.Escape:
 				if (this.isOpen) this.toggleIsOpen();
+				break;
+			default:
 				break;
 		}
 	}

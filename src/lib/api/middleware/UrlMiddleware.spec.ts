@@ -1,7 +1,6 @@
 ﻿import { getTestAPIRequest } from '$lib/testHelpers/testData/testAPIRequest';
 import UrlMiddleware from '$lib/api/middleware/UrlMiddleware';
 import { getTestApplicationConfig } from '$lib/testHelpers/testData/testApplicationConfig';
-import ConfigService from '$lib/services/Config/ConfigService';
 import MessageBus from '$lib/bus/MessageBus';
 import { Messages } from '$lib/bus/Messages';
 import { beforeEach } from 'vitest';
@@ -60,7 +59,7 @@ describe('UrlMiddleware', () => {
 
 	it.each([null, undefined, {}, '', []])(
 		'defaults to / if the prefix is not set',
-		async (nullValue: any) => {
+		async (nullValue: never) => {
 			const appConfig = getTestApplicationConfig({ baseUrl: nullValue });
 			MessageBus.sendMessage(Messages.ApplicationConfig, appConfig);
 

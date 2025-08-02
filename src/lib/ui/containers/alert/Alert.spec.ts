@@ -14,7 +14,7 @@ describe('Alert', () => {
 
 		if (result) result.unmount();
 
-		result = render(Alert, { props: props as any });
+		result = render(Alert, { props: props as never }) as never;
 	}
 
 	beforeEach(() => {

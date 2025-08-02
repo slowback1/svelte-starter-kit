@@ -3,7 +3,7 @@
 
 	export let type = 'text';
 	export let label = '';
-	export let onChange = (event: Event) => {};
+	export let onChange: (event: Event) => void = () => {};
 	export let id = slugify(label);
 	export let value = '';
 	let boundValue = '';

@@ -5,7 +5,7 @@
     export let label: string = "";
     export let testId: string = id;
 
-    export let onClick: (value: boolean) => void = (value) => {
+    export let onClick: (value: boolean) => void = () => {
     };
 
     function handleClicked(event) {

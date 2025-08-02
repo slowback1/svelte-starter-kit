@@ -29,7 +29,9 @@ function getOverride(page: string): PageOverride {
 }
 
 function getPriority(page: string) {
-	return getOverride(page).priority ?? 0.5;
+	const defaultPagePriority = 0.5;
+
+	return getOverride(page).priority ?? defaultPagePriority;
 }
 
 function getChangeFreq(page: string) {

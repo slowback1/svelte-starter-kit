@@ -12,7 +12,7 @@ describe('MessageBus', () => {
 	});
 
 	it('can subscribe to a message', () => {
-		const unsubscribe = MessageBus.subscribe('test_message', (value) => {});
+		const unsubscribe = MessageBus.subscribe('test_message', () => {});
 
 		expect(unsubscribe).toBeDefined();
 		expect(unsubscribe).toBeTypeOf('function');
@@ -49,7 +49,7 @@ describe('MessageBus', () => {
 	it('can clear a message', () => {
 		let receivedValue = '';
 
-		const unsubscribe = MessageBus.subscribe('test_message', (value) => (receivedValue = value));
+		MessageBus.subscribe('test_message', (value) => (receivedValue = value));
 
 		MessageBus.sendMessage('test_message', 'hello world');
 
@@ -157,7 +157,7 @@ describe('MessageBus', () => {
 	});
 
 	it('can send messages asynchronously', async () => {
-		let storedValue: any;
+		let storedValue: never;
 
 		MessageBus.subscribe('test', async (value) => {
 			await new Promise((res) => setTimeout(res, 100));

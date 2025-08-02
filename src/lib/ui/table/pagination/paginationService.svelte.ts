@@ -16,6 +16,9 @@ export type PaginationDataRetrieved = {
 
 export default class PaginationService {
 	private static readonly MAX_VISIBLE_PAGES = 5;
+	private static readonly PAGE_OFFSET_ONE = 1;
+	// eslint-disable-next-line no-magic-numbers -- it should be clear that these are the default options for rows per page
+	private static readonly DEFAULT_ROWS_PER_PAGE_OPTIONS = [10, 25, 50, 100];
 
 	public settings: PaginationServiceSettings;
 	private parameters: PaginationRequestParameters = $state();
@@ -35,34 +38,25 @@ export default class PaginationService {
 	}
 
 	public getVisiblePageNumbers(): number[] {
-		const visiblePages = [this.parameters.page];
+		const { page, rowsPerPage } = this.parameters;
+		const totalPages = Math.ceil(this.totalCount / rowsPerPage);
+		const maxPages = PaginationService.MAX_VISIBLE_PAGES;
 
-		if (this.parameters.page > 1) {
-			visiblePages.unshift(this.parameters.page - 1);
+		// eslint-disable-next-line no-magic-numbers -- it should be clear that we are calculating the half of the max visible pages
+		const half = Math.floor(maxPages / 2);
+
+		let start = Math.max(page - half, PaginationService.PAGE_OFFSET_ONE);
+		let end = start + maxPages - 1;
+
+		if (end > totalPages) {
+			end = totalPages;
+			start = Math.max(end - maxPages + 1, PaginationService.PAGE_OFFSET_ONE);
 		}
 
-		if (this.parameters.page > 2) {
-			visiblePages.unshift(this.parameters.page - 2);
+		const visiblePages: number[] = [];
+		for (let i = start; i <= end; i++) {
+			visiblePages.push(i);
 		}
-
-		for (let i = this.parameters.page; i < this.totalCount / this.parameters.rowsPerPage; i++) {
-			visiblePages.push(i + 1);
-
-			if (visiblePages.length >= PaginationService.MAX_VISIBLE_PAGES) {
-				break;
-			}
-		}
-
-		if (visiblePages.length < PaginationService.MAX_VISIBLE_PAGES) {
-			for (let i = this.parameters.page - 3; i > 0; i--) {
-				visiblePages.unshift(i);
-
-				if (visiblePages.length >= PaginationService.MAX_VISIBLE_PAGES) {
-					break;
-				}
-			}
-		}
-
 		return visiblePages;
 	}
 
@@ -117,7 +111,7 @@ export default class PaginationService {
 	private buildInitialParameters(): PaginationRequestParameters {
 		return {
 			page: 1,
-			rowsPerPage: this.settings.rowsPerPageOptions[0] || 10
+			rowsPerPage: this.settings.rowsPerPageOptions[0] || PaginationService.DEFAULT_ROWS_PER_PAGE_OPTIONS[0]
 		};
 	}
 
@@ -125,7 +119,7 @@ export default class PaginationService {
 		settings: Partial<PaginationServiceSettings>
 	): PaginationServiceSettings {
 		return {
-			rowsPerPageOptions: settings.rowsPerPageOptions || [10, 25, 50, 100],
+			rowsPerPageOptions: settings.rowsPerPageOptions || PaginationService.DEFAULT_ROWS_PER_PAGE_OPTIONS,
 			onPageChange: settings.onPageChange || doNothing
 		};
 	}

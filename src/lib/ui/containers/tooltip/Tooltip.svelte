@@ -6,11 +6,11 @@
 	let tooltipShown = false;
 	let tooltipFading = false;
 
-	const onMouseEnter = (e: Event) => {
+	const onMouseEnter = () => {
 		tooltipShown = true;
 	};
 
-	const onMouseLeave = (e: Event) => {
+	const onMouseLeave = () => {
 		tooltipFading = true;
 
 		setTimeout(() => {
@@ -25,6 +25,7 @@
 	data-testid="tooltip-content"
 	on:mouseenter={onMouseEnter}
 	on:mouseleave={onMouseLeave}
+	role="tooltip"
 >
 	<slot>Slot Content</slot>
 

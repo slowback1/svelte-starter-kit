@@ -1,5 +1,6 @@
 import type IStorageProvider from './providers/IStorageProvider';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type SubscriberCallback<T = any> = (value?: T) => void | Promise<void>;
 
 class MessageBusConfiguration {
@@ -21,6 +22,7 @@ class MessageBusConfiguration {
 }
 
 export default class MessageBus {
+	/* eslint-disable @typescript-eslint/no-explicit-any */
 	private static messageLog: { [message: string]: any } = {};
 	private static subscribers: { [message: string]: SubscriberCallback[] } = {};
 	private static storageProvider: IStorageProvider;
@@ -35,18 +37,19 @@ export default class MessageBus {
 		Object.keys(storedValues).forEach((key) => {
 			const value = this.tryParseJson(storedValues[key]);
 
-			this.sendMessage(key, value);
+			this.sendMessage(key, value as never);
 		});
 	}
 
 	private static tryParseJson(value: string) {
 		try {
 			return JSON.parse(value);
-		} catch {}
-		return value;
+		} catch {
+			return value;
+		}
 	}
 
-	public static subscribe<T = any>(message: string, callback: (value: T) => void): () => void {
+	public static subscribe<T = never>(message: string, callback: (value: T) => void): () => void {
 		if (!this.subscribers[message]) this.subscribers[message] = [];
 
 		this.subscribers[message].push(callback);
@@ -57,13 +60,14 @@ export default class MessageBus {
 			this.subscribers[message] = this.subscribers[message].filter((s) => s != callback);
 		};
 	}
-
+	/* eslint-disable @typescript-eslint/no-explicit-any */
 	static sendMessage(message: string, value: any) {
 		this.messageLog[message] = value;
 		this.notifySubscribers(message);
 		this.updateStorage(message);
 	}
 
+	/* eslint-disable @typescript-eslint/no-explicit-any */
 	static async sendMessageAsync(message: string, value: any) {
 		this.messageLog[message] = value;
 		await this.notifySubscribersAsync(message);
@@ -71,7 +75,7 @@ export default class MessageBus {
 	}
 
 	static clear(message: string) {
-		this.sendMessage(message, null);
+		this.sendMessage(message, null as never);
 	}
 
 	static clearAll() {
@@ -98,10 +102,15 @@ export default class MessageBus {
 		const subscriberList = this.subscribers[message];
 		const value = this.messageLog[message];
 
+		const promises: Promise<void>[] = [];
+
 		if (subscriberList)
 			for (const sub of subscriberList) {
-				await sub(value);
+				const promise = Promise.resolve(sub(value));
+				promises.push(promise);
 			}
+
+		await Promise.all(promises);
 	}
 	private static notifySubscribers(message: string) {
 		const subscriberList = this.subscribers[message];

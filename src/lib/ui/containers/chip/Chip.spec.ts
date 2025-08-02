@@ -11,7 +11,7 @@ describe('Chip', () => {
 
 		const props: ChipProps = { text: 'chip text', ...overrides };
 
-		result = render(Chip, { props: props as any });
+		result = render(Chip, { props: props as never }) as never;
 	}
 
 	beforeEach(() => {

@@ -30,10 +30,12 @@ class TestApi extends BaseApi {
 		return await this.Delete('/test');
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is a test */
 	async TestPost(body: any) {
 		return await this.Post('/test', body);
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is a test */
 	async TestPut(body: any) {
 		return await this.Put('/test', body);
 	}
@@ -42,10 +44,12 @@ class TestApi extends BaseApi {
 		return await this.Get('/test', { key: 'value' });
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is a test */
 	async TestPostWithQueryParameters(body: any) {
 		return await this.Post('/test', body, { key: 'value' });
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is a test */
 	async TestPutWithQueryParameters(body: any) {
 		return await this.Put('/test', body, { key: 'value' });
 	}
@@ -63,11 +67,11 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestGet();
+		await api.TestGet();
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		const [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0] as never as [string, RequestInit];
 
 		expect(url).toContain('test');
 		expect(options.method).toEqual('GET');
@@ -78,11 +82,11 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestDelete();
+		await api.TestDelete();
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		const [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0] as never as [string, RequestInit];
 
 		expect(url).toContain('test');
 		expect(options.method).toEqual('DELETE');
@@ -93,9 +97,9 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestGet();
+		await api.TestGet();
 
-		const options = mockFetch.mock.calls[0][1];
+		const options = (mockFetch.mock.calls[0] as never as [string, RequestInit])[1];
 
 		const authHeader = options.headers['Authorization'];
 
@@ -109,11 +113,11 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestPost({ msg: 'hi' });
+		await api.TestPost({ msg: 'hi' });
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		const [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0] as never as [string, RequestInit];
 
 		expect(url).toContain('test');
 		expect(JSON.parse(options.body as string).msg).toEqual('hi');
@@ -125,8 +129,8 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestPost({ msg: 'hi' });
-		const options = mockFetch.mock.calls[0][1];
+		await api.TestPost({ msg: 'hi' });
+		const options = (mockFetch.mock.calls[0] as never as [string, RequestInit])[1];
 
 		const authHeader = options.headers['Authorization'];
 
@@ -140,11 +144,11 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestPut({ msg: 'hi' });
+		await api.TestPut({ msg: 'hi' });
 
 		expect(mockFetch).toHaveBeenCalled();
 
-		const [url, options] = mockFetch.mock.calls[0];
+		const [url, options] = mockFetch.mock.calls[0] as never as [string, RequestInit];
 
 		expect(url).toContain('test');
 		expect(JSON.parse(options.body as string).msg).toEqual('hi');
@@ -156,8 +160,8 @@ describe('BaseApi', () => {
 			'/test': 'hello world'
 		});
 
-		const result = await api.TestPut({ msg: 'hi' });
-		const options = mockFetch.mock.calls[0][1];
+		await api.TestPut({ msg: 'hi' });
+		const options = (mockFetch.mock.calls[0] as never as [string, RequestInit])[1];
 
 		const authHeader = options.headers['Authorization'];
 

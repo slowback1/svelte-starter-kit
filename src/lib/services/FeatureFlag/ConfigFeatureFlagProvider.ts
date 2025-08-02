@@ -21,15 +21,15 @@ export default class ConfigFeatureFlagProvider implements IFeatureFlagProvider {
 		return featureFlags;
 	}
 
-	private isFeatureFlagArray(maybeFeatureFlagArray: any) {
+	private isFeatureFlagArray(maybeFeatureFlagArray: unknown[]): boolean {
 		return Array.isArray(maybeFeatureFlagArray) && maybeFeatureFlagArray.every(this.isFeatureFlag);
 	}
 
-	private isFeatureFlag(maybeFeatureFlag: any) {
+	private isFeatureFlag(maybeFeatureFlag: unknown) {
 		return (
 			maybeFeatureFlag &&
-			typeof maybeFeatureFlag.name === 'string' &&
-			typeof maybeFeatureFlag.isEnabled === 'boolean'
+			typeof (maybeFeatureFlag as FeatureFlag).name === 'string' &&
+			typeof (maybeFeatureFlag as FeatureFlag).isEnabled === 'boolean'
 		);
 	}
 }

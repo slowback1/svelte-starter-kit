@@ -1,4 +1,4 @@
-import { fireEvent, render, type RenderResult, waitFor } from '@testing-library/svelte';
+import { render, type RenderResult, waitFor } from '@testing-library/svelte';
 import Checkbox from '$lib/ui/inputs/Checkbox/Checkbox.svelte';
 import type { ComponentProps } from 'svelte';
 import { beforeEach, expect } from 'vitest';
@@ -62,9 +62,9 @@ describe('Checkbox', () => {
 		expect(label).toHaveAttribute('data-testid', 'something-different-label');
 	});
 
-	it("is not checked by default when not overridden", () => {
+	it('is not checked by default when not overridden', () => {
 		CheckboxTestHelpers.assertCheckboxISNotChecked('test');
-	})
+	});
 
 	it('can be checked by default', () => {
 		renderComponent({ checked: true });

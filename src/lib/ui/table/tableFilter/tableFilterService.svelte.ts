@@ -6,7 +6,7 @@
 
 export default class TableFilterService {
 	private fields: TableFilterField[] = $state([]);
-	private readonly onFilter: (filters: Record<string, any>) => void;
+	private readonly onFilter: (filters: Record<string, never>) => void;
 
 	constructor(props: TableFilterProps) {
 		this.fields = props.fields;
@@ -24,7 +24,7 @@ export default class TableFilterService {
 
 	public resetFields() {
 		this.fields = this.fields.map((field) => {
-			field.value = undefined;
+			field.value = undefined as never;
 			return field;
 		});
 
@@ -32,7 +32,7 @@ export default class TableFilterService {
 	}
 
 	private getFilterCallback(field: TableFilterField) {
-		return (value: any) => {
+		return (value: never) => {
 			this.fields[this.fields.findIndex((f) => f.id === field.id)].value = value;
 			this.filterFields();
 		};
@@ -44,7 +44,7 @@ export default class TableFilterService {
 	}
 
 	private buildFieldMap() {
-		const fieldMap: Record<string, any> = {};
+		const fieldMap: Record<string, never> = {};
 
 		this.fields.forEach((field) => {
 			fieldMap[field.id] = field.value;

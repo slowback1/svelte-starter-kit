@@ -48,6 +48,7 @@ export default abstract class BaseApi {
 		let transformedRequest = request;
 
 		for (const middleware of this.middlewares) {
+			// eslint-disable-next-line no-await-in-loop -- we need these to run in order
 			transformedRequest = await middleware.transformRequest(transformedRequest);
 		}
 
@@ -65,6 +66,7 @@ export default abstract class BaseApi {
 	}
 
 	private buildPostyRequestInit(
+		/* eslint-disable @typescript-eslint/no-explicit-any */
 		body: any,
 		method: string,
 		queryParameters: Record<string, string>
@@ -77,7 +79,7 @@ export default abstract class BaseApi {
 			queryParameters
 		};
 	}
-
+	/* eslint-disable @typescript-eslint/no-explicit-any */
 	private stringifyBody(body: any) {
 		if (typeof body === 'string') return body;
 

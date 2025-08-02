@@ -7,13 +7,13 @@
 	import { slugify } from '$lib/utils/stringUtils';
 
 	export let label: string;
-	export let onSelect: (value: any) => void;
-	export let options: ComboBoxOption<any>[] = [];
+	export let onSelect: (value: never) => void;
+	export let options: ComboBoxOption<never>[] = [];
 	export let testId: string = '';
 
 	const comboBoxService = reactiveInstanceOf(ComboBoxService, options, onSelect);
 
-	function getOptionId(option: ComboBoxOptionOutput<any>) {
+	function getOptionId(option: ComboBoxOptionOutput<never>) {
 		return `${testId}-${slugify(option.value)}`;
 	}
 </script>
@@ -24,6 +24,10 @@
 	}}
 	data-testid={testId}
 	class="combo-box"
+	role="combobox"
+	tabindex={0}
+	aria-controls={`${testId}__listbox`}
+	aria-expanded={$comboBoxService.isOpen ? 'true' : 'false'}
 >
 	<label class="combo-box__label" for={`${testId}__input`} data-testid={`${testId}__label`}>
 		{label}
@@ -73,7 +77,7 @@
 			aria-label={label}
 			class="combo-box__option-list"
 		>
-			{#each $comboBoxService.displayedOptions as option}
+			{#each $comboBoxService.displayedOptions as option (option.value)}
 				<li
 					data-testid={`${testId}__option`}
 					role="option"
@@ -82,6 +86,8 @@
 					on:click={() => comboBoxService.handleSelect(option)}
 					on:mouseenter={() => comboBoxService.setFocus(option)}
 					class:combo-box__option-focused={$comboBoxService.focusedOption.id === option.id}
+					tabindex="0"
+					on:keydown={(e) => comboBoxService.handleKeyboardEvent(e, option)}
 				>
 					{option.label}
 				</li>

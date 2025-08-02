@@ -18,7 +18,7 @@ describe('fetch mocking', () => {
 
 	describe('getFetchMock', () => {
 		it('returns the response for json', async () => {
-			const mock = getFetchMock('hello world');
+			getFetchMock('hello world');
 
 			const result = await fetchAndJson('/test');
 
@@ -26,7 +26,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('returns the response for text', async () => {
-			const mock = getFetchMock('hello world');
+			getFetchMock('hello world');
 
 			const result = await fetch('/test').then((res) => res.text());
 
@@ -36,17 +36,17 @@ describe('fetch mocking', () => {
 		it('returns the correct mock that functions for testing', async () => {
 			const mock = getFetchMock('hello world');
 
-			const result = await fetchAndJson('/test');
+			await fetchAndJson('/test');
 
 			expect(mock).toHaveBeenCalled();
 		});
 
 		it('can customize the status that is returned', async () => {
-			const mock = getFetchMock('hello world', 345);
+			getFetchMock('hello world', 345);
 
 			let status: number;
 
-			const result = await fetch('/test').then((res) => {
+			await fetch('/test').then((res) => {
 				status = res.status;
 				return res.json();
 			});
@@ -57,7 +57,7 @@ describe('fetch mocking', () => {
 
 	describe('mockApi', () => {
 		it('returns the response json when given the correct url', async () => {
-			const mock = mockApi({ test: 'hello world' });
+			mockApi({ test: 'hello world' });
 
 			const result = await fetchAndJson('test');
 
@@ -65,7 +65,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('returns the correct value when the map has more than one route', async () => {
-			const mock = mockApi({
+			mockApi({
 				test: 'hello world',
 				test2: 'value'
 			});
@@ -76,7 +76,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('will properly normalize routes', async () => {
-			const mock = mockApi({
+			mockApi({
 				TEST: 'hello world'
 			});
 
@@ -86,7 +86,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('will ignore a leading / in the route when matching routes', async () => {
-			const mock = mockApi({
+			mockApi({
 				'/test': 'hello world'
 			});
 
@@ -96,7 +96,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('will ignore a leading / in the given url when matching routes', async () => {
-			const mock = mockApi({
+			mockApi({
 				test: 'hello world'
 			});
 
@@ -106,7 +106,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('will ignore a trailing / in the  given url when matching routes', async () => {
-			const mock = mockApi({
+			mockApi({
 				'/test/': 'hello world'
 			});
 
@@ -116,7 +116,7 @@ describe('fetch mocking', () => {
 		});
 
 		it('Considers a * as a wildcard when matching routes', async () => {
-			const mock = mockApi({
+			mockApi({
 				'/test/*': 'hello world'
 			});
 
@@ -127,11 +127,11 @@ describe('fetch mocking', () => {
 
 		it('can return a custom status', async () => {
 			let status: number;
-			const mock = mockApi({
+			mockApi({
 				'/test/': { response: 'hello world', status: 123 }
 			});
 
-			const result = await fetch('test').then((res) => {
+			await fetch('test').then((res) => {
 				status = res.status;
 			});
 
@@ -140,11 +140,11 @@ describe('fetch mocking', () => {
 
 		it('the returned status is 200 by default', async () => {
 			let status: number;
-			const mock = mockApi({
+			mockApi({
 				'/test/': 'hello world'
 			});
 
-			const result = await fetch('test').then((res) => {
+			await fetch('test').then((res) => {
 				status = res.status;
 			});
 
@@ -152,13 +152,13 @@ describe('fetch mocking', () => {
 		});
 
 		it('throws an error if there are no matches', async () => {
-			const mock = mockApi({
+			mockApi({
 				'/test': 'hello world'
 			});
 
 			let itThrew = false;
 
-			const result = await fetchAndJson('/not-a-url').catch((err) => {
+			await fetchAndJson('/not-a-url').catch(() => {
 				itThrew = true;
 			});
 
@@ -166,14 +166,14 @@ describe('fetch mocking', () => {
 		});
 
 		it('the error it throws indicates the reason why it threw', async () => {
-			const mock = mockApi({
+			mockApi({
 				'/test': 'hello world'
 			});
 
 			let itThrew = false;
 			let errorMessage: string;
 
-			const result = await fetchAndJson('/not-a-url').catch((err: Error) => {
+			await fetchAndJson('/not-a-url').catch((err: Error) => {
 				itThrew = true;
 				errorMessage = err.message;
 			});

@@ -24,22 +24,22 @@ describe('AccordionService', () => {
 	it('initializes the config for the accordion in the message bus', () => {
 		const config = getCurrentConfig();
 
-		expect(config.has('test')).is.true;
+		expect(config.has('test')).toEqual(true);
 	});
 
 	it('does not try to store the data in the storage provider', () => {
 		const storedValue = storageProvider.getItem(Messages.AccordionConfig);
 
-		expect(storedValue).to.be.undefined;
+		expect(storedValue).toEqual(undefined);
 	});
 
 	it('does not reinitialize the message bus if a second accordion service is present', () => {
-		const service2 = new AccordionService('test2');
+		new AccordionService('test2');
 
 		const config = getCurrentConfig();
 
-		expect(config.has('test')).is.true;
-		expect(config.has('test2')).is.true;
+		expect(config.has('test')).toEqual(true);
+		expect(config.has('test2')).toEqual(true);
 	});
 
 	it('can register a config item', () => {

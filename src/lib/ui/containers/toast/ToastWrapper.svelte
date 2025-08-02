@@ -17,15 +17,17 @@
 		service.RemoveToast(index);
 	}
 
+	const maxToasts = 3;
+
 	$: mostRecentMessage = toasts.length === 0 ? '' : toasts[toasts.length - 1].message;
-	$: oldestToasts = toasts.length > 3 ? toasts.slice(0, 3) : toasts;
+	$: oldestToasts = toasts.length > maxToasts ? toasts.slice(0, maxToasts) : toasts;
 </script>
 
 <div class="toast-wrapper" data-testid="toast-wrapper">
 	<span data-testid="toast-wrapper__live" aria-live="polite" class="screen-reader-only">
 		{mostRecentMessage}
 	</span>
-	{#each oldestToasts as toast, index}
+	{#each oldestToasts as toast, index (toast.message + index)}
 		<ToastItem config={toast} onClose={() => onClose(index)} />
 	{/each}
 </div>
