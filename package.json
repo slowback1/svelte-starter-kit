@@ -17,6 +17,7 @@
     "test:ci": "vitest --reporter=junit --watch=false --outputFile=./testOutput/results.xml",
     "cypress:open": "npx cypress open",
     "eslint": "eslint . --ext .js,.ts,.svelte",
+    "eslint:check": "eslint . --ext .js,.ts,.svelte --max-warnings 0",
     "eslint:fix": "eslint . --ext .js,.ts,.svelte --fix"
   },
   "devDependencies": {
